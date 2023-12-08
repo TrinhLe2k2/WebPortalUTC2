@@ -1,0 +1,274 @@
+﻿@{
+    
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - UTC-2</title>
+    <link rel="icon" href="@ViewBag.school.faviconUrl" type="image/x-icon">
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/WebPortUTC2.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/icon/fontawesome-free-6.4.0-web/css/all.min.css">
+    <link rel="stylesheet" href="~/css/slick.css">
+    <link rel="stylesheet" href="~/css/slick-theme.css">
+    <link rel="stylesheet" href="~/css/bootstrap.min.css">
+</head>
+<body>
+    <section id="header" class="px-4 py-4">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="header-brand col-12 col-xl-3 d-flex justify-content-between">
+                    <a href="~/Home/Index" class="d-flex text-decoration-none">
+                        <img src="~/images/Logo.png" alt="Logo" width="50" height="50">
+                        <div class="header-brand-text text-uppercase ms-2 fw-bold" style="font-size: 0.9rem;">
+                            <p class=" mb-0 text-white">Trường đại học giao thông vận tải</p>
+                            <p class="mb-0 text-warning">Phân hiệu tại tp. hồ chí minh</p>
+                        </div>
+                    </a>
+                    <button class="navbar-toggler d-lg-none" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+                            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="text-warning"><i class="fa-solid fa-bars"></i></span>
+                    </button>
+                </div>
+                <div class="header-nav col-12 col-xl-9">
+                    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+                        <div class="container-fluid">
+                            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                                <ul class="navbar-nav me-auto mb-2 mb-lg-0 navigation">
+                                    <li class="nav-item">
+                                        <a class="nav-link fw-bold go-to-home" asp-controller="Home" asp-action="Index">Home</a>
+                                    </li>
+                                    <li class="nav-item"><a class="nav-link fw-bold" href="#">Sinh viên</a></li>
+                                    <li class="nav-item"><a class="nav-link fw-bold" href="#">Cựu sinh Viên</a></li>
+                                    <li class="nav-item"><a class="nav-link fw-bold" href="#">Thư Viện</a></li>
+                                    <li class="nav-item"><a class="nav-link fw-bold" href="#">Nghiên cứu</a></li>
+                                    <li class="nav-item"><a class="nav-link fw-bold" href="#">Đảng - Đoàn thể</a></li>
+                                    <li class="nav-item"><a class="nav-link fw-bold" href="#">Nội Bộ</a></li>
+                                </ul>
+                                <form class="d-flex" role="search">
+                                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                                    <button class="btn btn-warning" type="submit">Search</button>
+                                </form>
+                            </div>
+                        </div>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="second-navbar py-4">
+        <ul class="nav justify-content-center navigation">
+            <li class="nav-item">
+                <a class="nav-link text-black fw-bold general-introduction" href="~/Home/Introduction">Giới thiệu chung</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-black fw-bold" href="#">Đào tạo</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-black fw-bold" href="#">Đời sống sinh viên</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-black fw-bold admissions" asp-controller="Admissions" asp-action="Index">Tuyển sinh</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-black fw-bold" href="#">Tin tức - Sự kiện</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-black fw-bold" href="#">Lịch công tác</a>
+            </li>
+        </ul>
+    </section>
+    @RenderBody()
+    <section id="linkNetWork">
+        <div class="news py-5 bg-dark bg-opacity-25">
+            <div class="container py-5">
+                <h3 class="text-uppercase text-center pb-5 m-0">Tin tức & sự kiện</h3>
+                <div class="row">
+                    <div class="col-12 col-lg-6 bg-white p-3 rounded-4 news-first my-3">
+                        <a href="" class="news-link text-decoration-none text-black">
+                            <div class="news-poster position-relative" style="padding-bottom: 50%;">
+                                <img src="~/images/news1.png" class="position-absolute w-100 h-100 rounded-4" style="object-fit: cover;" alt="">
+                            </div>
+                            <p class="news-title fw-bold my-3">
+                                @ViewBag.news[0].name
+                            </p>
+                        </a>
+                    </div>
+                    <div class="col-12 col-lg-6 ps-0 ps-lg-3 pe-0 news-remaining">
+                        @{
+                            for(int i = 1; i < 4; i++) {
+                                <a href="" class="news-link text-decoration-none d-block my-3 text-black">
+                                    <div class="d-flex bg-white p-3 rounded-4">
+                                        <div class="news-poster position-relative w-75" style="padding-bottom: 15%;">
+                                            <img src="~/images/news2.png" class="position-absolute w-100 h-100 rounded-4" style="object-fit: cover;" alt="">
+                                        </div>
+                                        <div class="news-description p-3">
+                                            <p class="news-title fw-bold">@ViewBag.news[i].name</p>
+                                            <p class="news-content">@ViewBag.news[i].description</p>
+                                        </div>
+                                    </div>
+                                </a>
+                            }
+                        }
+                    </div>
+                </div>
+                <div class="row justify-content-between my-3 rounded-4">
+                    <a href="#" class="btn btn-light rounded-4">Xem tất cả tin tức</a>
+                </div>
+            </div>
+
+        </div>
+        <div class="quickLink py-5 bg-light">
+            <div class="container py-5">
+                <h3 class="text-uppercase text-center pb-5">Liên kết nhanh</h3>
+                <div class="row">
+                    <div class="col-12 col-sm-6 col-md-4">
+                        <div class="bg-white p-3 rounded-4 shadow">
+                            <div class="position-relative" style="padding-bottom: 55%;">
+                                <img src="~/images/link1.jpg" class="position-absolute w-100 h-100" alt="" style="object-fit: cover;">
+                            </div>
+                            <div class="d-flex justify-content-center my-3">
+                                <a href="#" class="btn btn-light">Xem thêm ></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-sm-6 col-md-4">
+                        <div class="bg-white p-3 rounded-4 shadow">
+                            <div class="position-relative" style="padding-bottom: 55%;">
+                                <img src="~/images/link2.png" class="position-absolute w-100 h-100" alt="" style="object-fit: cover;">
+                            </div>
+                            <div class="d-flex justify-content-center my-3">
+                                <a href="#" class="btn btn-light">Xem thêm ></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-sm-6 col-md-4">
+                        <div class="bg-white p-3 rounded-4 shadow">
+                            <div class="position-relative" style="padding-bottom: 55%;">
+                                <img src="~/images/link3.png" class="position-absolute w-100 h-100" alt="" style="object-fit: cover;">
+                            </div>
+                            <div class="d-flex justify-content-center my-3">
+                                <a href="#" class="btn btn-light">Xem thêm ></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section id="footer">
+        <div class="container-fluid bg-primaryUtc2 pt-5">
+            <div class="container text-white">
+                <div class="row">
+                    <div class="col-12 col-md-4 mb-4 mb-md-0">
+                        <div class="footer-brand d-flex align-items-center">
+                            <div>
+                                <img src="@ViewBag.school.logoUrl" alt="Logo" width="50" height="50">
+                            </div>
+                            <div class="footer-brand-text text-uppercase ms-2 fw-bold" style="font-size: 0.9rem;">
+                                <p class="m-0">Trường đại học giao thông vận tải</p>
+                                <p class="m-0 text-warning">Phân hiệu tại tp. hồ chí minh</p>
+                            </div>
+                        </div>
+                        <p class="my-3">@ViewBag.school.addressObj.addressText</p>
+                    </div>
+                    <div class="col">
+                        <p class="text-uppercase fw-bold">Đào tạo</p>
+                        <p class="py-4">@ViewBag.school.phone</p>
+                    </div>
+                    <div class="col">
+                        <p class="text-uppercase fw-bold">Tuyển sinh</p>
+                        <p class="py-4">@ViewBag.school.hotline</p>
+                    </div>
+                    <div class="col">
+                        <p class="text-uppercase fw-bold">Công tác chính trị sinh viên</p>
+                        <p class="py-4">@ViewBag.school.phone</p>
+                    </div>
+                </div>
+                <hr class="my-5">
+                <div class="row">
+                    <div class="col-12 col-md-4 mb-4 mb-md-0">
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3918.55009451168!2d106.79159707499157!3d10.845701257912207!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x317527158a0a5b81%3A0xf45c5d34ac580517!2zUGjDom4gaGnhu4d1IFRyxrDhu51uZyDEkOG6oWkgaOG7jWMgR1RWVCB04bqhaSBUcC4gSOG7kyBDaMOtIE1pbmg!5e0!3m2!1svi!2s!4v1701697302876!5m2!1svi!2s"
+                                width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"
+                                referrerpolicy="no-referrer-when-downgrade"></iframe>
+                    </div>
+                    <div class="col">
+                        <p class="text-uppercase fw-bold">Tuyển sinh</p>
+                        <nav class="nav flex-column">
+                            <a class="nav-link px-0" href="#">Đại học chính quy</a>
+                            <a class="nav-link px-0" href="#">Sau đại học</a>
+                            <a class="nav-link px-0" href="#">Bằng hai - Liên thông - VHVL</a>
+                        </nav>
+                    </div>
+                    <div class="col">
+                        <p class="text-uppercase fw-bold">Follow us</p>
+                        <nav class="nav flex-column">
+                            <a class="nav-link px-0" href="#">Youtube</a>
+                            <a class="nav-link px-0" href="#">Instagram</a>
+                            <a class="nav-link px-0" href="#">Tiktok</a>
+                            <a class="nav-link px-0" href="#">Facebook</a>
+                        </nav>
+                    </div>
+                    <div class="col">
+                        <p class="text-uppercase fw-bold">Truy cập nhanh</p>
+                        <nav class="nav flex-column">
+                            <a class="nav-link px-0" href="#">Trung tâm Đào tạo thực hành và Chuyển giao Công nghệ GTVT</a>
+                            <a class="nav-link px-0" href="#">Tin tức sự kiện</a>
+                            <a class="nav-link px-0" href="#">Đời sống sinh viên</a>
+                        </nav>
+                    </div>
+                </div>
+                <hr class="my-5">
+                <div class="d-flex justify-content-between pb-2">
+                    <div class="">
+                        <small>Bản quyền thuộc về Phân hiệu Trường Đại học GTVT tại TP. Hồ Chí Minh</small>
+                    </div>
+                    <div class="">
+                        <nav class="nav">
+                            <small><a class="nav-link" href="">Điều kiện</a></small>
+                            <small><a class="nav-link" href="">Chính sách bảo mật</a></small>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <button class="btn btn-primary position-fixed bottom-0 end-0 m-3" id="btnBackToTop"><i class="fa-brands fa-space-awesome"></i></button>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="~/js/slick.min.js"></script>
+    <script src="~/js/handleData.js"></script>
+    <script src="~/js/bootstrap.bundle.min.js"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+
+    <script>
+        $(document).ready(function () {
+            $('.single-item').each(function () {
+                $(this).slick({
+                    slidesToShow: 1,
+                    slidesToScroll: 1,
+                    autoplay: true,
+                    autoplaySpeed: 2000,
+                    pauseOnHover: false,
+                });
+            });
+            $(window).scroll(function () {
+                if ($(this).scrollTop()) {
+                    $('#btnBackToTop').fadeIn();
+                } else {
+                    $('#btnBackToTop').fadeOut();
+                }
+            });
+            $('#btnBackToTop').click(function () {
+                $('html, body').animate({
+                    scrollTop: 0
+                }, 500);
+            });
+        });
+    </script>
+
+</body>
+</html>

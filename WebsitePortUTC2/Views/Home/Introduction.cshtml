@@ -1,0 +1,147 @@
+﻿
+@{
+    ViewData["Title"] = "Introduction";
+    ViewBag.news = ViewBag.news;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<section id="introduction">
+    <div class="introduction__banner">
+        <div class="container pb-5">
+            <div class="position-relative" style="padding-bottom: 40%;">
+                <img src="~/images/introduction/banner.jpg" class="position-absolute w-100 h-100"
+                     style="object-fit: cover;" alt="">
+            </div>
+        </div>
+    </div>
+    <div class="introduction__nav-tab">
+        <div class="container">
+            <nav>
+                <div class="nav nav-tabs">
+                    <button class="nav-link active" id="nav-general-introduction-tab" data-bs-toggle="tab"
+                            data-bs-target="#nav-general-introduction" type="button" role="tab"
+                            aria-controls="nav-general-introduction" aria-selected="true">
+                        Giới thiệu chung
+                    </button>
+                    <button class="nav-link" id="nav-development-strategy-tab" data-bs-toggle="tab"
+                            data-bs-target="#nav-development-strategy" type="button" role="tab"
+                            aria-controls="nav-development-strategy" aria-selected="false">
+                        Chiến lược phát
+                        triển
+                    </button>
+                    <button class="nav-link" id="nav-history-tab" data-bs-toggle="tab" data-bs-target="#nav-history"
+                            type="button" role="tab" aria-controls="nav-history" aria-selected="false">
+                        Lịch sử hình
+                        thành và phát triển
+                    </button>
+
+                    <button class="nav-link" id="nav-affiliate-tab" data-bs-toggle="tab"
+                            data-bs-target="#nav-affiliate" type="button" role="tab" aria-controls="nav-affiliate"
+                            aria-selected="false">
+                        Đơn vị liên kết
+                    </button>
+                    <button class="nav-link" id="nav-organizational-structure-tab" data-bs-toggle="tab"
+                            data-bs-target="#nav-organizational-structure" type="button" role="tab"
+                            aria-controls="nav-organizational-structure" aria-selected="false">
+                        Cơ cấu tổ chức
+                    </button>
+                    <button class="nav-link" id="nav-traditional-room-tab" data-bs-toggle="tab"
+                            data-bs-target="#nav-traditional-room" type="button" role="tab"
+                            aria-controls="nav-traditional-room" aria-selected="false">
+                        Phòng truyền thống
+                    </button>
+                    <button class="nav-link" id="nav-public-information-tab" data-bs-toggle="tab"
+                            data-bs-target="#nav-public-information" type="button" role="tab"
+                            aria-controls="nav-public-information" aria-selected="false">
+                        Thông tin công khai
+                    </button>
+                </div>
+            </nav>
+            <div class="tab-content py-4" id="nav-tabContent">
+                <div class="tab-pane vh-100 fade show active" id="nav-general-introduction" role="tabpanel"
+                     aria-labelledby="nav-general-introduction-tab" tabindex="0">
+                    <h3>School Name: @ViewBag.school.name - @ViewBag.school.shortName</h3>
+                    <p>Phone: @ViewBag.school.phone</p>
+                    <p>Hotline: @ViewBag.school.hotline</p>
+                    <p>Email: @ViewBag.school.email</p>
+                    <p>Address: @ViewBag.school.addressObj.addressText</p>
+                    <p>
+                        Phân hiệu Trường Đại học Giao thông Vận tải tại TP. Hồ Chí Minh được thành lập theo quyết
+                        định số 2419/QĐ-BGDĐT ngày
+                        15 tháng 07 năm 2016 của Bộ trưởng Bộ Giáo dục và Đào tạo trên nền tảng Cơ sở II (được thành
+                        lập theo Quyết định số
+                        139/TCCB ngày 27/04/1990 của Bộ Giáo dục và Đào tạo). Phân hiệu là một bộ phận cấu thành
+                        quan trọng của Trường Đại
+                        học Giao thông Vận tải trực thuộc Bộ Giáo dục và Đào tạo. Trường tọa lạc trên diện tích hơn
+                        16ha tại Thành phố Thủ
+                        Đức, Thành phố Hồ Chí Minh, quy mô đào tạo trên 6500 sinh viên và học viên các hệ.
+
+                        Các ngành tổ chức đào tạo tại Phân hiệu Trường Đại học Giao thông Vận tải tại TP. Hồ Chí
+                        Minh gồm: Kỹ thuật Xây dựng
+                        công trình giao thông, Kỹ thuật Cơ khí động lực, Kỹ thuật Xây dựng, Kỹ thuật Điện - Điện tử,
+                        Công nghệ thông tin, Kế
+                        toán, Kinh tế xây dựng, Quản trị kinh doanh, Kinh tế, Khai thác vận tải, Kiến trúc với hơn
+                        60 chuyên ngành đào tạo
+                        khác nhau. Bên cạnh loại hình đào tạo Đại học chính quy, Phân hiệu còn có nhiều loại hình
+                        đào tạo khác nhằm đáp ứng
+                        nhu cầu của xã hội và giúp người học có được sự thuận lợi, chủ động tối đa về thời gian theo
+                        học như: Vừa làm Vừa
+                        học, Liên thông, Văn bằng 2.
+                    </p>
+                </div>
+                <div class="tab-pane vh-100 fade" id="nav-development-strategy" role="tabpanel"
+                     aria-labelledby="nav-development-strategy-tab" tabindex="0">
+                    <p>
+                        Chiến lược phát triển Trường Đại học Giao thông vận tải giai đoạn 2021 – 2030
+
+                        (Ban hành theo Nghị quyết số 33/NQ-HĐT ngày 01/12/2021 của Hội đồng Trường)
+                    </p>
+                </div>
+                <div class="tab-pane vh-100 fade" id="nav-history" role="tabpanel" aria-labelledby="nav-history-tab"
+                     tabindex="0">
+                    <p>
+                        Tiền thân của Trường Đại học Giao thông Vận tải là Trường Cao đẳng Công Chính, được thành
+                        lập ngày 25-12-1918 dưới
+                        thời Pháp thuộc, và được khai giảng lại dưới Chính thể Việt nam Dân chủ Cộng hòa vào ngày
+                        15-11-1945.
+
+                        Ngày 24/3/1962, Thủ tưởng Chính phủ Phạm Văn Đồng đã ký Quyết định số 42/CP về việc thành
+                        lập Trường Đại học Giao
+                        thông Vận tải.
+
+                        Sau ngày miền Nam hoàn toàn giải phóng, để đáp ứng nhu cầu mới cho sự nghiệp xây dựng đất
+                        nước nói chung và phát
+                        triển giao thông vận tải khu vực phía Nam nói riêng, ngày 27/04/1990, Bộ trưởng Bộ Giáo dục
+                        và Đào tạo ký Quyết định
+                        số 139/TCCB thành lập Cơ sở II của Trường Đại học Giao thông Vận tải tại Tp. Hồ Chí Minh.
+                    </p>
+                </div>
+                <div class="tab-pane vh-100 fade" id="nav-affiliate" role="tabpanel"
+                     aria-labelledby="nav-affiliate-tab" tabindex="0">
+                    <p>Đơn vị liên kết trong nước</p>
+                </div>
+                <div class="tab-pane vh-100 fade" id="nav-organizational-structure" role="tabpanel"
+                     aria-labelledby="nav-organizational-structure-tab" tabindex="0">
+                    Cơ cấu tổ chức
+                </div>
+                <div class="tab-pane vh-100 fade" id="nav-traditional-room" role="tabpanel"
+                     aria-labelledby="nav-traditional-room-tab" tabindex="0">
+                    Phòng truyền thống
+                </div>
+                <div class="tab-pane vh-100 fade" id="nav-public-information" role="tabpanel"
+                     aria-labelledby="nav-public-information-tab" tabindex="0">
+                    Thông tin công khai
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+@section Scripts {
+    <script>
+        ResetActiveNavLink();
+        document.querySelector('.general-introduction').classList.add('active');
+    </script>
+}
+

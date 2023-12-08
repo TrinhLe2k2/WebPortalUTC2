@@ -1,0 +1,134 @@
+﻿
+@{
+    ViewData["Title"] = "Tuyển Sinh";
+}
+
+<section id="admissions">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 col-xl-8 admissions__news">
+                <div class="d-flex justify-content-between align-items-center">
+                    <h5>Tin Tuyển Sinh</h5>
+                    <div>
+                        <select id="filterSelect" class="form-select">
+                            <option selected>Filter</option>
+                            <option value="1">Theo tên</option>
+                            <option value="2">Theo Loại</option>
+                            <option value="3">Gần Đây</option>
+                        </select>
+                    </div>
+                </div>
+                @foreach (var item in ViewBag.pageListNews)
+                {
+                    <div>
+                        <a href="" class="news-link text-decoration-none d-block my-3 text-black">
+                            <div class="row bg-white rounded-4">
+                                <div class="news-poster position-relative col-3 d-none d-lg-block" style="padding-bottom: 15%;">
+                                    <img src="~/images/news1.png" class="position-absolute w-100 h-100 rounded-4" style="object-fit: cover;" alt="">
+                                </div>
+                                <div class="news-description col-9">
+                                    <div class="ms-3">
+                                        <p class="news-title fw-bold limit-tag-p">@item.name</p>
+                                        <p class="news-content limit-tag-p">@item.description</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                }
+                <div class="PageNews">
+                    <p>Page @(ViewBag.CurrentPage) / @(ViewBag.TotalPages)</p>
+                    <nav aria-label="Page navigation">
+                        <ul class="pagination">
+                            @if (ViewBag.CurrentPage > 1)
+                            {
+                                <li class="page-item"><a class="page-link" href="@Url.Action("Index", new { page = ViewBag.CurrentPage - 1 })">previous</a></li>
+                            }
+                            @for (int i = 1; i <= ViewBag.TotalPages; i++)
+                            {
+                                    @if (i == ViewBag.CurrentPage)
+                                    {
+                                    <li class="page-item"><a class="page-link disabled" href="#">@i</a></li>
+                                    }
+                                    else
+                                    {
+                                    <li class="page-item"><a class="page-link" href="@Url.Action("Index", new { page = i })">@i</a></li>
+                                    }
+                            }
+                            @if (ViewBag.CurrentPage < ViewBag.TotalPages)
+                            {
+                                <li class="page-item"><a class="page-link" href="@Url.Action("Index", new { page = ViewBag.CurrentPage + 1 })">next</a></li>
+                            }
+                        </ul>
+                    </nav>
+                </div>
+
+            </div>
+            <div class="col-12 col-xl-4 admissions__type">
+                <h5 class="mb-4">Tuyển Sinh</h5>
+                <div class="mb-3">
+                    <a href="#" class="btn btn-primary w-100 py-2 fw-bold">
+                        Tuyển sinh sau đại học
+                    </a>
+                </div>
+                <div class="mb-3">
+                    <a href="#" class="btn btn-warning text-white w-100 py-2 fw-bold">
+                        Tuyển sinh đại học
+                    </a>
+                </div>
+                <div class="mb-3">
+                    <a href="#" class="btn btn-success w-100 py-2 fw-bold">
+                        Tuyển sinh liên thông - Bằng 2 - VHVL
+                    </a>
+                </div>
+                <div class="mb-3">
+                    <a href="#" class="btn btn-danger w-100 py-2 fw-bold">
+                        Kết quả tuyển sinh
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+@section Scripts {
+    <script>
+        ResetActiveNavLink();
+        document.querySelector('.admissions').classList.add('active');
+
+        $(document).ready(function () {
+            $('#filterSelect').change(function () {
+                // Lấy giá trị đã chọn
+                var selectedValue = $(this).val();
+
+                // Xử lý logic dựa trên giá trị đã chọn
+                console.log('Selected Value: ' + selectedValue);
+
+                // Gọi hàm hoặc thực hiện các thao tác khác tùy thuộc vào giá trị đã chọn
+                handleSelectedValue(selectedValue);
+            });
+        });
+
+        // Hàm xử lý logic dựa trên giá trị đã chọn
+        function handleSelectedValue(value) {
+            // Thực hiện các thao tác tương ứng với giá trị đã chọn
+            switch (value) {
+                case '1':
+                    // Xử lý khi chọn Name
+                    console.log('Filter by Name');
+                    break;
+                case '2':
+                    // Xử lý khi chọn Type
+                    console.log('Filter by Type');
+                    break;
+                default:
+                    // Xử lý khi chọn Filter (giá trị mặc định)
+                    console.log('No filter selected');
+                    break;
+            }
+        }
+
+        function 
+
+    </script>
+}
