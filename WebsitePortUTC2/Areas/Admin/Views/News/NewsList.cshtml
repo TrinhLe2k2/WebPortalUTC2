@@ -8,11 +8,8 @@
 
     <!-- Page Heading -->
     <h1 class="h3 mb-2 text-gray-800">Danh Sách Tin Tức</h1>
-    <p class="mb-4">
-        DataTables is a third party plugin that is used to generate the demo table below.
-        For more information about DataTables, please visit the <a target="_blank"
-                                                                   href="https://datatables.net">official DataTables documentation</a>.
-    </p>
+    <a href="~/Admin/News/Create" class="btn btn-success">Thêm Tin Tức Mới</a>
+    <p class="mb-4"></p>
 
     <!-- DataTales Example -->
     <div class="card shadow mb-4">
@@ -21,7 +18,7 @@
         </div>
         <div class="card-body">
             <div class="table-responsive">
-                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <table class="table table-bordered" id="NewsTable" width="100%" cellspacing="0">
                     <thead>
                         <tr>
                             <th>id</th>
@@ -46,27 +43,7 @@
                             <th>Action</th>
                         </tr>
                     </tfoot>
-                    <tbody id="DataNews">
-                        <tr>
-                            <td>Tiger Nixon</td>
-                            <td>Tiger Nixon</td>
-                            <td>System Architect</td>
-                            <td>Edinburgh</td>
-                            <td>61</td>
-                            <td>2011/04/25</td>
-                            <td>$320,800</td>
-                        </tr>
-                        <tr>
-                            <td>Tiger Nixon</td>
-                            <td>Michael Bruce</td>
-                            <td>Javascript Developer</td>
-                            <td>Singapore</td>
-                            <td>29</td>
-                            <td>2011/06/27</td>
-                            <td>$183,000</td>
-                            <td>$183,000</td>
-                            <td><div><a href="" class="btn btn-success">Thêm</a> | <a href="" class="btn btn-warning">Sửa</a> | <a href="" class="btn btn-danger">Xóa</a></div></td>
-                        </tr>
+                    <tbody>
                         <tr>
                             <td>Tiger Nixon</td>
                             <td>Donna Snider</td>
@@ -75,7 +52,7 @@
                             <td>27</td>
                             <td>2011/01/25</td>
                             <td>$112,000</td>
-                            <td><div><a href="" class="btn btn-success">Thêm</a> | <a href="" class="btn btn-warning">Sửa</a> | <a href="" class="btn btn-danger">Xóa</a></div></td>
+                            <td><div><a href="" class="btn btn-warning">Sửa</a><a href="" class="btn btn-danger">Xóa</a></div></td>
                         </tr>
                     </tbody>
                 </table>
@@ -86,7 +63,7 @@
 </div>
 
 @section Scripts
-{
+{    
     <script>
         GetAPINewsList();
         function GetAPINewsList(){
@@ -99,33 +76,65 @@
             })
                 .then(response => response.json())
                 .then(object => {
-                    var html = '';
-                    object.data.forEach(element => {
-                        html += `
-                                        <tr>
-                                            <td><p>${element.id}</p></td>
-                                            <td><p>${element.name}</p></td>
-                                            <td><p>${element.description}</p></td>
-                                            <td>${element.newsCategoryObj.name}</td>
-                                            <td>${element.viewNumber}</td>
-                                            <td>${element.publishedAt}</td>
-                                            <td>${element.isHot}</td>
-                                            <td><div><a href="/Admin/News/Edit/${element.id}" class="btn btn-warning">Sửa</a><a href="" class="btn btn-danger">Xóa</a></div></td>
-                                        </tr>
-                                `;
+                    $(document).ready(function () {
+                        $('#NewsTable').DataTable({
+                            data: object.data,
+                            columns: [
+                                { data: 'id' },
+                                { 
+                                    data: 'name',
+                                    render: function (data, type, row) {
+                                        return '<p class="limit-tag-p"><a class="text-decoration-none" href="/Admin/News/Detail/' + row.id + '">' + data + '</a></p>';
+                                    }
+                                },
+                                { 
+                                    data: 'description',
+                                    render: function (data, type, row) {
+                                        return '<p class="limit-tag-p">' + data + '</p>';
+                                    }
+                                },
+                                { data: 'newsCategoryObj.name' },
+                                { data: 'viewNumber' },
+                                { data: 'publishedAt' },
+                                { data: 'isHot' },
+                                {
+                                    data: null,
+                                    render: function (data, type, row) {
+                                        return '<div><a href="/Admin/News/Edit/' + data.id + '"class="btn btn-warning mb-2">Sửa</a><a href="/Admin/News/Delete/' + data.id + '" class="btn btn-danger">Xóa</a></div>';
+                                    }
+                                }
+                            ]
+                        });
                     });
 
-                    // innerHTML
-                    document.getElementById('DataNews').innerHTML = html;
+                    // var html = '';
+                    // object.data.forEach(element => {
+                    //     html += `
+                    //                     <tr>
+                    //                         <td><p>${element.id}</p></td>
+                    //                         <td><p>${element.name}</p></td>
+                    //                         <td><p>${element.description}</p></td>
+                    //                         <td>${element.newsCategoryObj.name}</td>
+                    //                         <td>${element.viewNumber}</td>
+                    //                         <td>${element.publishedAt}</td>
+                    //                         <td>${element.isHot}</td>
+                    //                                         <td><div><a href="/Admin/News/Edit/${element.id}" class="btn btn-warning">Sửa</a><a href="/Admin/News/Delete/${element.id}" class="btn btn-danger">Xóa</a></div></td>
+                    //                     </tr>
+                    //             `;
+                    // });
+
+                    // // innerHTML
+                    // document.getElementById('DataNews').innerHTML = html;
                 })
                 .catch(error => {
                     console.error('Error:', error);
                 })
                 .finally(() => {
-                    document.querySelectorAll('#DataNews p').forEach(item => {
-                        item.classList.add('limit-tag-p');
-                    });
+                    
                 });
         }
+
+        
+        Active(".collapse-News", ".collapse-News__list");
     </script>
 }

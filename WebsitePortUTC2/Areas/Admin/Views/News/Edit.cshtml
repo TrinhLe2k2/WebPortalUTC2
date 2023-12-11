@@ -5,9 +5,9 @@
 }
 
 <div class="container">
-    <h1 class="h3 mb-2 text-gray-800">Chỉ Sửa Tin Tức</h1>
+    <h1 class="h3 mb-2 text-gray-800">Chỉnh Sửa Tin Tức</h1>
     <form id="FormCreateNews" action="~/Admin/News/Edit" method="post">
-        <input type="number" class="form-control" hidden name="newsId" value="@Model.id">
+        <input type="number" id="InputId" class="form-control" name="newsId" hidden readonly value="@Model.id">
         <input type="text" class="form-control" hidden name="publishedAt" value="@Model.publishedAt">
         <div class="mb-3">
             <label for="InputName" class="form-label">Tiêu Đề</label>
@@ -29,3 +29,8 @@
     </form>
 </div>
 
+@section Scripts {
+    <script>
+        Active(".collapse-News", ".collapse-News__edit");
+    </script>
+}

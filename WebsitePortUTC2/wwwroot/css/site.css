@@ -184,16 +184,18 @@ p, h3 {
 
 /* index css */
 
+#news-detail .news-link:hover,
 #linkNetWork .news-link:hover {
     transition: 0.3s;
     filter: drop-shadow(8px 8px 10px gray);
 }
 
+.format-content,
 .limit-tag-p,
 .news-title,
 .news-content {
     display: -webkit-box;
-    -webkit-line-clamp: 2;
+    /*-webkit-line-clamp: 2;*/
     -webkit-box-orient: vertical;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -201,8 +203,14 @@ p, h3 {
     hyphens: auto;
 }
 
+.limit-tag-p {
+    -webkit-line-clamp: 3 !important;
+}
+.news-title,
+.news-content {
+    -webkit-line-clamp: 2 !important;
+}
 /* introduction css */
-
 .introduction__nav-tab .nav-link {
     border: none;
     color: #000;

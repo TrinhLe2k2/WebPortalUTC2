@@ -14,6 +14,10 @@ function ResetActiveNavLink() {
     });
 }
 
+function ActiveNavLink(clasNavLink) {
+    document.querySelector(clasNavLink).classList.add('active');
+}
+
 // index js
 
 function ModalImage(item) {
@@ -50,3 +54,15 @@ function Certification() {
 }
 
 // introduction
+
+
+// Layout Admin
+function Active(collapseNews, collapseNewsList) {
+    var navItem = document.querySelector(collapseNews);
+    var navLink = navItem.querySelector('.nav-link');
+    navLink.classList.remove('collapsed');
+    navLink.setAttribute('aria-expanded', 'true');
+
+    navItem.querySelector('.collapse').classList.add('show');
+    navItem.querySelector(collapseNewsList).classList.add('active');
+}

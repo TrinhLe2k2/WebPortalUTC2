@@ -20,7 +20,7 @@ namespace WebsitePortUTC2.Controllers
             try
             {
                 #region data 4 news
-                var news = await _newsService.GetAllNews();
+                var news = await _newsService.GetListNewsByPaging(null, null, 1, null);
                 // Thực hiện các thao tác với dữ liệu provinces
                 ViewBag.news = news;
                 #endregion

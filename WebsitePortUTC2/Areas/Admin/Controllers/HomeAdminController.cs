@@ -8,7 +8,7 @@ namespace WebsitePortUTC2.Areas.Admin.Controllers
     public class HomeAdminController : Controller
     {
         //[Route("")]
-        //[Route("index")]
+        [Route("admin/HomeAdmin/Index")]
         public IActionResult Index()
         {
             return View();

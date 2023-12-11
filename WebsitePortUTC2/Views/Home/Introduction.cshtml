@@ -66,7 +66,7 @@
                     <p>Hotline: @ViewBag.school.hotline</p>
                     <p>Email: @ViewBag.school.email</p>
                     <p>Address: @ViewBag.school.addressObj.addressText</p>
-                    <p>
+                    <p class="format-content">
                         Phân hiệu Trường Đại học Giao thông Vận tải tại TP. Hồ Chí Minh được thành lập theo quyết
                         định số 2419/QĐ-BGDĐT ngày
                         15 tháng 07 năm 2016 của Bộ trưởng Bộ Giáo dục và Đào tạo trên nền tảng Cơ sở II (được thành
@@ -141,7 +141,7 @@
 @section Scripts {
     <script>
         ResetActiveNavLink();
-        document.querySelector('.general-introduction').classList.add('active');
+        ActiveNavLink(".general-introduction");
     </script>
 }
 

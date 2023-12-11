@@ -12,6 +12,7 @@ namespace WebsitePortUTC2.Services
         Task<dynamic> PostNews(string name, string description, int newsCategoryId, string metaUrl);
         Task<dynamic> GetListNewsByPaging(int? NewsCategoryId, string? SearchText, int? Page, int? Record);
         Task<dynamic> PutNews(int newsId, string name, string description, int newsCategoryId, string metaUrl, string publishedAt);
+        Task<bool> DeleteNews(int newsId);
     }
     public class NewsService : INewsService
     {
@@ -66,7 +67,7 @@ namespace WebsitePortUTC2.Services
         }
         public async Task<dynamic> GetListNewsByPaging(int? NewsCategoryId, string? SearchText, int? Page, int? Record)
         {
-            var url = "https://api-intern-test.h2aits.com/News/GetListByPaging?SequenceStatus=1&SchoolId=2";
+            var url = "https://api-intern-test.h2aits.com/News/GetListByPaging?SequenceStatus=1";
 
             if(NewsCategoryId != null) url += "&NewsCategoryId=" + NewsCategoryId;
             if(SearchText != "" && SearchText != null) url += "&SearchText=" + SearchText;
@@ -83,7 +84,6 @@ namespace WebsitePortUTC2.Services
             }
             return null;
         }
-
         public async Task<dynamic> PostNews(string name, string description, int newsCategoryId, string metaUrl)
         {
             try
@@ -123,7 +123,6 @@ namespace WebsitePortUTC2.Services
                 throw new Exception($"Error calling the API: {ex.Message}");
             }
         }
-
         public async Task<dynamic> PutNews(int newsId, string name, string description, int newsCategoryId, string metaUrl, string publishedAt)
         {
             try
@@ -164,6 +163,29 @@ namespace WebsitePortUTC2.Services
                 throw new Exception($"Error calling the API: {ex.Message}");
             }
         }
+        public async Task<bool> DeleteNews(int newsId)
+        {
+            try
+            {
+                var client = _httpClientFactory.CreateClient();
+                var apiUrl = $"https://api-intern-test.h2aits.com/News/Delete?id={newsId}";
+
+                // Thực hiện cuộc gọi DELETE và nhận response
+                var response = await client.DeleteAsync(apiUrl);
+
+                // Đảm bảo cuộc gọi thành công (StatusCode 2xx)
+                response.EnsureSuccessStatusCode();
+
+                // Xóa thành công
+                return true;
+            }
+            catch (Exception ex)
+            {
+                // Xử lý lỗi ở đây (hiển thị thông báo lỗi hoặc chuyển hướng đến trang lỗi)
+                throw new Exception($"Error calling the API: {ex.Message}");
+            }
+        }
+
 
     }
 }

@@ -21,7 +21,7 @@
                 @foreach (var item in ViewBag.pageListNews)
                 {
                     <div>
-                        <a href="" class="news-link text-decoration-none d-block my-3 text-black">
+                        <a href="/Admin/News/Detail/@item.id" class="news-link text-decoration-none d-block my-3 text-black">
                             <div class="row bg-white rounded-4">
                                 <div class="news-poster position-relative col-3 d-none d-lg-block" style="padding-bottom: 15%;">
                                     <img src="~/images/news1.png" class="position-absolute w-100 h-100 rounded-4" style="object-fit: cover;" alt="">
@@ -93,9 +93,6 @@
 
 @section Scripts {
     <script>
-        ResetActiveNavLink();
-        document.querySelector('.admissions').classList.add('active');
-
         $(document).ready(function () {
             $('#filterSelect').change(function () {
                 // Lấy giá trị đã chọn
@@ -128,7 +125,8 @@
             }
         }
 
-        function 
+        ResetActiveNavLink();
+        ActiveNavLink(".admissions");
 
     </script>
 }

@@ -28,53 +28,7 @@
 </div>
 
 @section Scripts {
-    @* <script>
-        function CreateNews(data) {
-            var url = 'https://api-intern-test.h2aits.com/News/Create';
-            fetch(url, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(data)
-            })
-                .then(response => response.json())
-                .then(responseData => {
-                    console.log('Response Data:', responseData);
-                    console.log('from Data:', data);
-                    //document.getElementById('linkNewsList').click();
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                });
-        }
-        function SubmitCreate() {
-            var formCreate = document.getElementById('FormCreateNews');
-            var name = formCreate.querySelector('input[name="name"]').value;
-            var description = formCreate.querySelector('input[name="description"]').value;
-            var newsCategoryId = formCreate.querySelector('input[name="newsCategoryId"]').value;
-            var metaUrl = formCreate.querySelector('input[name="metaUrl"]').value;
-
-            var formData = {
-                name: name,
-                description: description,
-                newsCategoryId: newsCategoryId,
-                publishedAt: new Date().toISOString(),
-                metaUrl: metaUrl,
-                status: 1
-            }
-
-            var newData = {
-                name: "Hello World News",
-                description: "This is a sample news created via Fetch API.",
-                newsCategoryId: 1, 
-                publishedAt: "2023-12-10T12:34:55",
-                metaUrl: "/hello-world-news",
-                status: 1
-            };
-
-            //formCreate.reset();
-            CreateNews(newData);
-        } *@
+    <script>
+        Active(".collapse-News", ".collapse-News__create");
     </script>    
 }

@@ -4,4 +4,10 @@
     Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
 }
 
-<h1>Home Index</h1>
+<h1>Home Admin</h1>
+
+@section scripts{
+    <script>
+        document.querySelector('.homeAdmin').classList.add('active');
+    </script>
+}

@@ -1,0 +1,130 @@
+﻿
+@{
+    ViewData["Title"] = "NewsCategoryList";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+
+<div class="container-fluid">
+
+    <!-- Page Heading -->
+    <h1 class="h3 mb-2 text-gray-800">Danh Sách Danh Mục</h1>
+    <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#createCaterogyModal">
+        Thêm Danh Mục Mới
+    </button>
+    <p class="mb-4"></p>
+
+    <!-- DataTales Example -->
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Danh Mục</h6>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered" id="NewsTable" width="100%" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th>id</th>
+                            <th>Name</th>
+                            <th>createdAt</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tfoot>
+                        <tr>
+                            <th>id</th>
+                            <th>Name</th>
+                            <th>createdAt</th>
+                            <th>Action</th>
+                        </tr>
+                    </tfoot>
+                    <tbody>
+                        <tr>
+                            <td>Tiger Nixon</td>
+                            <td>Donna Snider</td>
+                            <td>Customer Support</td>
+                            <td><div><a href="" class="btn btn-warning">Sửa</a><a href="" class="btn btn-danger">Xóa</a></div></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<div>
+    <!-- Modal -->
+    <div class="modal fade" id="createCaterogyModal" tabindex="-1" aria-labelledby="createCaterogyModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form action="/Admin/NewsCategory/Create" method="post">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="createCaterogyModalLabel">Thêm Danh Mục Mới</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="mb-3">
+                            <label for="InputName" class="form-label">Tên Danh Mục</label>
+                            <input type="text" class="form-control" id="InputName" name="name">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-success">Thêm Mới</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts
+{
+    <script>
+        GetAPINewsList();
+        function GetAPINewsList() {
+            var url = 'https://api-intern-test.h2aits.com/NewsCategory/GetListByStatus?status=1';
+            fetch(url, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+            })
+                .then(response => response.json())
+                .then(object => {
+                    $(document).ready(function () {
+                        $('#NewsTable').DataTable({
+                            data: object.data,
+                            columns: [
+                                { data: 'id' },
+                                {
+                                    data: 'name',
+                                    render: function (data, type, row) {
+                                        return '<p class="limit-tag-p">' + data + '</p>';
+                                    }
+                                },
+                                { data: 'createdAt' },
+                                {
+                                    data: null,
+                                    render: function (data, type, row) {
+                                        return '<div><a href="/Admin/NewsCategory/Edit/' + data.id + '"class="btn btn-warning mx-2">Sửa</a><a href="/Admin/NewsCategory/Delete/' + data.id + '" class="btn btn-danger">Xóa</a></div>';
+                                    }
+                                }
+                            ]
+                        });
+                    });
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                })
+                .finally(() => {
+
+                });
+        }
+
+
+        Active(".collapse-NewsCategory", ".collapse-NewsCategory__list");
+    </script>
+}
+
