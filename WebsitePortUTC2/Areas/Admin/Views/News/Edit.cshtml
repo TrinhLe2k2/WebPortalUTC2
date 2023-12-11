@@ -1,0 +1,31 @@
+﻿
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<div class="container">
+    <h1 class="h3 mb-2 text-gray-800">Chỉ Sửa Tin Tức</h1>
+    <form id="FormCreateNews" action="~/Admin/News/Edit" method="post">
+        <input type="number" class="form-control" hidden name="newsId" value="@Model.id">
+        <input type="text" class="form-control" hidden name="publishedAt" value="@Model.publishedAt">
+        <div class="mb-3">
+            <label for="InputName" class="form-label">Tiêu Đề</label>
+            <input type="text" class="form-control" id="InputName" name="name" value="@Model.name">
+        </div>
+        <div class="mb-3">
+            <label for="InputDescription" class="form-label">Mô Tả</label>
+            <input type="text" class="form-control" id="InputDescription" name="description" value="@Model.description">
+        </div>
+        <div class="mb-3">
+            <label for="InputCategory" class="form-label">Thể Loại</label>
+            <input type="number" class="form-control" id="InputCategory" name="newsCategoryId" value="@Model.newsCategoryId">
+        </div>
+        <div class="mb-3">
+            <label for="InputMetaUrl" class="form-label">URL</label>
+            <input type="text" class="form-control" id="InputMetaUrl" name="metaUrl" value="@Model.metaUrl">
+        </div>
+        <input type="submit" class="btn btn-primary" value="Submit">
+    </form>
+</div>
+

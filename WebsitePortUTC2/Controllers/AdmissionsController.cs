@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.RazorPages;
+using System.Text.Json;
 using WebsitePortUTC2.Services;
 
 namespace WebsitePortUTC2.Controllers
@@ -46,11 +48,6 @@ namespace WebsitePortUTC2.Controllers
                 // Xử lý exception, có thể ghi log, hiển thị thông báo lỗi, vv.
                 return RedirectToAction("Error");
             }
-        }
-
-        public async Task<IActionResult> ListNews(int? NewsCategoryId, string? SearchText, int? Page, int? Record)
-        {
-            return View();
         }
     }
 }
