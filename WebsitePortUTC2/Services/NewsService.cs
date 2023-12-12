@@ -9,9 +9,10 @@ namespace WebsitePortUTC2.Services
     {
         Task<dynamic> GetAllNews();
         Task<dynamic> GetNewsByID(int id);
-        Task<dynamic> PostNews(string name, string description, int newsCategoryId, string metaUrl);
+        Task<dynamic> PostNews(string name, string description, int? newsCategoryId, string metaUrl, int? imageId);
         Task<dynamic> GetListNewsByPaging(int? NewsCategoryId, string? SearchText, int? Page, int? Record);
-        Task<dynamic> PutNews(int newsId, string name, string description, int newsCategoryId, string metaUrl, string publishedAt);
+        Task<dynamic> Paging(int? NewsCategoryId, string? SearchText, int? Page, int? Record);
+        Task<dynamic> PutNews(int newsId, string name, string description, int imageId, int newsCategoryId, string metaUrl, string publishedAt);
         Task<bool> DeleteNews(int newsId);
     }
     public class NewsService : INewsService
@@ -78,13 +79,37 @@ namespace WebsitePortUTC2.Services
             var response = await httpClient.GetAsync(url);
             var content = await response.Content.ReadAsStringAsync();
             var newsApiResponse = JsonConvert.DeserializeObject<dynamic>(content);
-            if (newsApiResponse.data != null && newsApiResponse.data.Count > 0)
-            {
-                return newsApiResponse.data;
-            }
-            return null;
+            //if (newsApiResponse.data != null && newsApiResponse.data.Count > 0)
+            //{
+            //    return newsApiResponse.data;
+            //}
+            return newsApiResponse;
         }
-        public async Task<dynamic> PostNews(string name, string description, int newsCategoryId, string metaUrl)
+
+        public async Task<dynamic> Paging(int? NewsCategoryId, string? SearchText, int? Page, int? Record)
+        {
+            try
+            {
+                var url = "https://api-intern-test.h2aits.com/News/GetListByPaging?SequenceStatus=1";
+
+                if (NewsCategoryId != null) url += "&NewsCategoryId=" + NewsCategoryId;
+                if (SearchText != "" && SearchText != null) url += "&SearchText=" + SearchText;
+                if (Page != null) url += "&Page=" + Page;
+                if (Record != null) url += "&Record=" + Record;
+
+                var httpClient = _httpClientFactory.CreateClient();
+                var response = await httpClient.GetAsync(url);
+                var content = await response.Content.ReadAsStringAsync();
+                var newsApiResponse = JsonConvert.DeserializeObject<ApiResponse>(content);
+
+                return newsApiResponse;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Error calling the API: {ex.Message}");
+            }
+        }
+        public async Task<dynamic> PostNews(string name, string description, int? newsCategoryId, string metaUrl, int? imageId)
         {
             try
             {
@@ -98,6 +123,7 @@ namespace WebsitePortUTC2.Services
                         { "Description", description },
                         { "NewsCategoryId", newsCategoryId.ToString() },
                         { "MetaUrl", metaUrl },
+                        { "ImageId", imageId.ToString() },
                         { "Status", "1" }, // Nếu Status là kiểu int, cần chuyển về kiểu string
                         { "PublishedAt", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") } // Định dạng ngày giờ theo đúng yêu cầu của API
                     };
@@ -123,7 +149,7 @@ namespace WebsitePortUTC2.Services
                 throw new Exception($"Error calling the API: {ex.Message}");
             }
         }
-        public async Task<dynamic> PutNews(int newsId, string name, string description, int newsCategoryId, string metaUrl, string publishedAt)
+        public async Task<dynamic> PutNews(int newsId, string name, string description, int imageId, int newsCategoryId, string metaUrl, string publishedAt)
         {
             try
             {
@@ -136,6 +162,7 @@ namespace WebsitePortUTC2.Services
                     { "Id", newsId.ToString() },
                     { "Name", name },
                     { "Description", description },
+                    { "ImageId", imageId.ToString() },
                     { "NewsCategoryId", newsCategoryId.ToString() },
                     { "MetaUrl", metaUrl },
                     { "Status", "1" },

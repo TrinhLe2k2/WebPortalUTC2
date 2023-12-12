@@ -10,10 +10,12 @@ namespace WebsitePortUTC2.Areas.Admin.Controllers
     {
         private readonly ISchoolService _schoolService;
         private readonly INewsService _newsService;
-        public NewsController(INewsService newsService, ISchoolService schoolService)
+        private readonly IImageService _imageService;
+        public NewsController(INewsService newsService, ISchoolService schoolService, IImageService imageService)
         {
             _newsService = newsService;
             _schoolService = schoolService;
+            _imageService = imageService;
         }
 
         [Route("admin/news/newslist")]
@@ -28,9 +30,22 @@ namespace WebsitePortUTC2.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(string name, string description, int newsCategoryId, string metaUrl)
+        public async Task<IActionResult> Create(string name, string description, int newsCategoryId, string metaUrl, IFormFile poster)
         {
-            var result = await _newsService.PostNews(name, description, newsCategoryId, metaUrl);
+            var postimg = 0;
+            if (poster != null)
+            {
+                var respostimg = await _imageService.PostImage("poster", poster);
+                postimg = respostimg.data.id;
+            }
+            if(postimg == 0)
+            {
+                var result = await _newsService.PostNews(name, description, newsCategoryId, metaUrl, null);
+            }
+            else
+            {
+                var result = await _newsService.PostNews(name, description, newsCategoryId, metaUrl, postimg);
+            }
             return RedirectToAction("NewsList");
         }
 
@@ -45,9 +60,9 @@ namespace WebsitePortUTC2.Areas.Admin.Controllers
         }
         
         [HttpPost]
-        public async Task<IActionResult> Edit(int newsId, string name, string description, int newsCategoryId, string metaUrl, string publishedAt)
+        public async Task<IActionResult> Edit(int newsId, string name, string description, int imageId, int newsCategoryId, string metaUrl, string publishedAt)
         {
-            var res = await _newsService.PutNews(newsId, name, description, newsCategoryId, metaUrl, publishedAt);
+            var res = await _newsService.PutNews(newsId, name, description, imageId, newsCategoryId, metaUrl, publishedAt);
             if(res.data != null)
             {
                 return RedirectToAction("NewsList");
@@ -58,7 +73,10 @@ namespace WebsitePortUTC2.Areas.Admin.Controllers
         public async Task<IActionResult> Delete(int id)
         {
             var res = await _newsService.DeleteNews(id);
-            return RedirectToAction("NewsList");
+            var resultJson = new {
+                StatusCode = 200,
+            };
+            return Json(resultJson);
         }
 
         public async Task<IActionResult> Detail(int id)
@@ -69,6 +87,7 @@ namespace WebsitePortUTC2.Areas.Admin.Controllers
                 var news = await _newsService.GetAllNews();
                 // Thực hiện các thao tác với dữ liệu provinces
                 ViewBag.news = news;
+                ViewBag.newsCount = news.Count < 10 ? news.Count : 10;
                 #endregion
 
                 #region data school

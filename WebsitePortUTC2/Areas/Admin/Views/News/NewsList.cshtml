@@ -95,36 +95,23 @@
                                 },
                                 { data: 'newsCategoryObj.name' },
                                 { data: 'viewNumber' },
-                                { data: 'publishedAt' },
+                                { 
+                                    data: 'publishedAt',
+                                    render: function (data, type, row) {
+                                        var formattedDate = new Date(data).toISOString().slice(0, 19).replace("T", " ");
+                                        return formattedDate;
+                                    }
+                                },
                                 { data: 'isHot' },
                                 {
                                     data: null,
                                     render: function (data, type, row) {
-                                        return '<div><a href="/Admin/News/Edit/' + data.id + '"class="btn btn-warning mb-2">Sửa</a><a href="/Admin/News/Delete/' + data.id + '" class="btn btn-danger">Xóa</a></div>';
+                                        return `<div><a href="/Admin/News/Edit/${data.id}" class="btn btn-warning mb-2">Sửa</a><a data-delete="${data.id}" class="btn btn-danger cursorPointer" onclick="handleDelete(this)">Xóa</a></div>`;
                                     }
                                 }
                             ]
                         });
                     });
-
-                    // var html = '';
-                    // object.data.forEach(element => {
-                    //     html += `
-                    //                     <tr>
-                    //                         <td><p>${element.id}</p></td>
-                    //                         <td><p>${element.name}</p></td>
-                    //                         <td><p>${element.description}</p></td>
-                    //                         <td>${element.newsCategoryObj.name}</td>
-                    //                         <td>${element.viewNumber}</td>
-                    //                         <td>${element.publishedAt}</td>
-                    //                         <td>${element.isHot}</td>
-                    //                                         <td><div><a href="/Admin/News/Edit/${element.id}" class="btn btn-warning">Sửa</a><a href="/Admin/News/Delete/${element.id}" class="btn btn-danger">Xóa</a></div></td>
-                    //                     </tr>
-                    //             `;
-                    // });
-
-                    // // innerHTML
-                    // document.getElementById('DataNews').innerHTML = html;
                 })
                 .catch(error => {
                     console.error('Error:', error);
@@ -134,6 +121,23 @@
                 });
         }
 
+        function handleDelete(item) {
+            var url = 'https://localhost:7115/Admin/News/Delete/' + item.dataset.delete;
+            fetch(url, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+            })
+                .then(response => response.json())
+                .then(data => {
+                    item.closest('tr').remove();
+                    alert("Xóa thành công");
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+        }
         
         Active(".collapse-News", ".collapse-News__list");
     </script>

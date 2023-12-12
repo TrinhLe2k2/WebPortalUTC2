@@ -8,10 +8,12 @@ namespace WebsitePortUTC2.Areas.Admin.Controllers
     [Area("admin")]
     public class WebsiteController : Controller
     {
-        private readonly ISchoolService _schoolService;
-        public WebsiteController(ISchoolService schoolService)
+        private readonly ISchoolService _schoolService; 
+        private readonly IAddressService _addressService; 
+        public WebsiteController(ISchoolService schoolService, IAddressService addressService)
         {
             _schoolService = schoolService;
+            _addressService = addressService;
         }
 
         [Route("admin/Website/InformationWebsite")]
@@ -23,9 +25,14 @@ namespace WebsitePortUTC2.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Edit(int schoolId, string name, string shortName, string code, string logoUrl, string faviconUrl, int addressId, string hotline, string phone, string email)
+        public async Task<IActionResult> Edit(int schoolId, string name, string shortName, string code, string logoUrl, string faviconUrl, string addressText, string hotline, string phone, string email)
         {
             var res = await _schoolService.PutSchool(schoolId, name, shortName, code, logoUrl, faviconUrl, hotline, phone, email);
+            if (addressText != null && addressText != "")
+            {
+                var putAddress = await _addressService.PutAddress(addressText);
+            }
+            
             return RedirectToAction("InformationWebsite");
         }
     }

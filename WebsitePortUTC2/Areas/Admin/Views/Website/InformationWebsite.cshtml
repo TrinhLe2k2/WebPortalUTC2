@@ -7,7 +7,7 @@
 <div class="container">
     <h1 class="h3 mb-2 text-gray-800">Quản Lý Website</h1>
     <form id="FormCreateNews" action="/Admin/Website/Edit" method="post">
-        <input type="number" class="form-control" name="schoolId" readonly value="@ViewBag.School.id">
+        <input type="number" class="form-control-plaintext" name="schoolId" readonly hidden value="@ViewBag.School.id">
         <div class="mb-3">
             <label for="InputName" class="form-label">Tên Trường</label>
             <input type="text" class="form-control" id="InputName" name="name" value="@ViewBag.School.name">
@@ -30,8 +30,7 @@
         </div>
         <div class="mb-3">
             <label for="InputAddress" class="form-label">Địa Chỉ</label>
-            <input type="number" class="form-control" name="addressId" readonly value="@ViewBag.School.addressObj.id">
-            <input type="text" class="form-control" id="InputAddress" name="addressName" value="@ViewBag.School.addressObj.addressText">
+            <input type="text" class="form-control" id="InputAddress" name="addressText" value="@ViewBag.School.addressObj.addressText">
         </div>
         <div class="mb-3">
             <label for="InputHotline" class="form-label">Hotline</label>

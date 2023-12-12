@@ -8,6 +8,8 @@ builder.Services.AddHttpClient();
 builder.Services.AddScoped<INewsService, NewsService>();
 builder.Services.AddScoped<ISchoolService, SchoolService>();
 builder.Services.AddScoped<ICategoryService, CategoryService>();
+builder.Services.AddScoped<IAddressService, AddressService>();
+builder.Services.AddScoped<IImageService, ImageService>();
 
 var app = builder.Build();
 

@@ -61,6 +61,16 @@ namespace WebsitePortUTC2.Controllers
             }
         }
 
+        [HttpPost]
+        public IActionResult Login(string email, string pass)
+        {
+            if(email == "email@example.com" && pass == "123")
+            {
+                return Redirect("/Admin/HomeAdmin/Index");
+            }
+            return RedirectToAction("Index");
+        }
+
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
