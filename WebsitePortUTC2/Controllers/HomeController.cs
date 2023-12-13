@@ -15,7 +15,7 @@ namespace WebsitePortUTC2.Controllers
             _newsService = newsService;
             _schoolService = schoolService;
         }
-        [Route("Home")]
+        //[Route("Home")]
         public async Task<IActionResult> Index()
         {
             try
