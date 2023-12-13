@@ -20,10 +20,11 @@ namespace WebsitePortUTC2.Controllers
             _categoryService = categoryService;
         }
         [Route("Admissions")]
-        public async Task<IActionResult> Index(int? page)
+        public async Task<IActionResult> Index(string? txtSearch)
         {
             try
             {
+                ViewBag.txtSearch = txtSearch;
                 #region GetCategoriesListByStatus 
                 var categories = await _categoryService.GetListByStatus(1);
                 ViewBag.Categories = categories;
@@ -50,12 +51,21 @@ namespace WebsitePortUTC2.Controllers
             }
         }
 
-        public async Task<IActionResult> GetNewsListByPaging(int? page, int? filter, int? record)
+        public async Task<IActionResult> GetNewsListByPaging(int? page, int? filter, int? record, string? search)
         {
             var pageNumber = page ?? 1;
             var pageSize = record ?? 3;
-            var pageListNews = await _newsService.Paging(filter, null, pageNumber, pageSize);
-            return Json(pageListNews);
+            
+            if (search == null || search == "")
+            {
+                var pageListNews = await _newsService.Paging(filter, null, pageNumber, pageSize);
+                return Json(pageListNews);
+            }
+            else
+            {
+                var pageListNews = await _newsService.Paging(filter, search, pageNumber, pageSize);
+                return Json(pageListNews);
+            }
         }
     }
 }

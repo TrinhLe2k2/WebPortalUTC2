@@ -131,5 +131,13 @@ namespace WebsitePortUTC2.Areas.Admin.Controllers
                 return RedirectToAction("Error");
             }
         }
+
+        [HttpPost]
+        public async Task<IActionResult> Search(string search)
+        {
+            string url = Url.Action("Index", "Admissions", new { txtSearch = search });
+            return Redirect(url);
+        }
+
     }
 }

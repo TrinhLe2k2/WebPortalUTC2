@@ -45,9 +45,11 @@
                                     <li class="nav-item"><a class="nav-link fw-bold" href="/Home">Đảng - Đoàn thể</a></li>
                                     <li class="nav-item"><a class="nav-link fw-bold" href="/Home">Nội Bộ</a></li>
                                 </ul>
-                                <form class="d-flex" role="search">
-                                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                                    <button class="btn btn-warning" type="submit">Search</button>
+                                <form action="/Admin/News/Search" method="post">
+                                    <div class="d-flex">
+                                        <input class="form-control me-2" type="search" placeholder="Search" name="search" value="@ViewBag.txtSearch">
+                                        <button class="btn btn-warning" type="submit">Search</button>
+                                    </div>
                                 </form>
                             </div>
                         </div>
@@ -71,7 +73,7 @@
                 <a class="nav-link text-black fw-bold admissions" href="/Admissions">Tuyển sinh</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link text-black fw-bold" href="/Admissions">Tin tức - Sự kiện</a>
+                <a class="nav-link text-black fw-bold newsEvent" href="/Admissions">Tin tức - Sự kiện</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link text-black fw-bold" href="#">Lịch công tác</a>
@@ -325,6 +327,9 @@
                 }, 500);
             });
         });
+
+        
+
     </script>
 
 </body>
