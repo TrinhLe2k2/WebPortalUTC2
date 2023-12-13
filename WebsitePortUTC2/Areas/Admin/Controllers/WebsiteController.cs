@@ -16,7 +16,7 @@ namespace WebsitePortUTC2.Areas.Admin.Controllers
             _addressService = addressService;
         }
 
-        [Route("admin/Website/InformationWebsite")]
+        [Route("Website")]
         public async Task<IActionResult> InformationWebsite()
         {
             var school = await _schoolService.GetSchoolAsync();

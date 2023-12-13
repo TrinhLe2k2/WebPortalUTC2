@@ -15,6 +15,7 @@ namespace WebsitePortUTC2.Controllers
             _newsService = newsService;
             _schoolService = schoolService;
         }
+        [Route("Home")]
         public async Task<IActionResult> Index()
         {
             try
@@ -38,6 +39,7 @@ namespace WebsitePortUTC2.Controllers
             }
         }
 
+        [Route("Introduction")]
         public async Task<IActionResult> Introduction()
         {
             try
@@ -66,7 +68,7 @@ namespace WebsitePortUTC2.Controllers
         {
             if(email == "email@example.com" && pass == "123")
             {
-                return Redirect("/Admin/HomeAdmin/Index");
+                return Redirect("/HomeAdmin");
             }
             return RedirectToAction("Index");
         }

@@ -12,8 +12,12 @@
                     <div>
                         <select id="filterSelect" class="form-select">
                             <option selected value="0">Filter</option>
-                            <option value="1">Tin Tức</option>
-                            <option value="2">Thông Báo</option>
+                            @{
+                                for (var i = 0; i < ViewBag.CategoriesCount; i++)
+                                {
+                                    <option value="@ViewBag.Categories[i].id">@ViewBag.Categories[i].name</option>
+                                }
+                            }
                         </select>
                     </div>
                 </div>
@@ -41,8 +45,8 @@
                         <ul class="pagination">
                             <li class="page-item"> <a class="page-link" href=""> previous </a></li>
                             <li class="page-item"> <a class="page-link bg-primary" href="#">1</a></li>
-                            <li class="page-item"> <a class="page-link bg-primary" href="#">2</a></li>
-                            <li class="page-item"> <a class="page-link bg-primary" href="#">3</a></li>
+                            <li class="page-item"> <a class="page-link" href="#">2</a></li>
+                            <li class="page-item"> <a class="page-link" href="#">3</a></li>
                             <li class="page-item"> <a class="page-link" href="">next</a></li>
                         </ul>
                     </nav>
@@ -134,7 +138,7 @@
                         let urlImg = (data.data[i].imageObj != null) ? data.data[i].imageObj.relativeUrl : "https://www.survivorsuk.org/wp-content/uploads/2017/01/no-image.jpg";
                         htmlNewsList += `
                                     <div>
-                                         <a href="/Admin/News/Detail/${data.data[i].id}" class="news-link text-decoration-none d-block my-3 text-black">
+                                         <a href="/News/${data.data[i].nameSlug}-${data.data[i].id}" class="news-link text-decoration-none d-block my-3 text-black">
                                             <div class="row bg-white rounded-4">
                                                 <div class="news-poster position-relative col-3 d-none d-lg-block" style="padding-bottom: 15%;">
                                                     <img src="${urlImg}" class="position-absolute w-100 h-100 rounded-4" style="object-fit: cover;" alt="">

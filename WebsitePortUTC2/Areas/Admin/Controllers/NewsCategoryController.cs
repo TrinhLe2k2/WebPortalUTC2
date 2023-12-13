@@ -12,7 +12,7 @@ namespace WebsitePortUTC2.Areas.Admin.Controllers
             _categoryService = categoryService;
         }
 
-        [Route("admin/NewsCategory/newsCategorylist")]
+        [Route("NewsCategory/newsCategorylist")]
         public IActionResult NewsCategoryList()
         {
             var newsCategoryList = _categoryService.GetCategoryById(1);
@@ -27,6 +27,7 @@ namespace WebsitePortUTC2.Areas.Admin.Controllers
             return RedirectToAction("NewsCategoryList");
         }
 
+        [Route("NewsCategory/edit/{id:int}")]
         public async Task<IActionResult> Edit(int id)
         {
             var isNewsCategory = await _categoryService.GetCategoryById(id);

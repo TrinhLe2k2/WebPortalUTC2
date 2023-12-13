@@ -5,47 +5,51 @@
 }
 
 <div class="container">
-    <h1 class="h3 mb-2 text-gray-800">Quản Lý Website</h1>
-    <form id="FormCreateNews" action="/Admin/Website/Edit" method="post">
-        <input type="number" class="form-control-plaintext" name="schoolId" readonly hidden value="@ViewBag.School.id">
-        <div class="mb-3">
-            <label for="InputName" class="form-label">Tên Trường</label>
-            <input type="text" class="form-control" id="InputName" name="name" value="@ViewBag.School.name">
+    <div class="row justify-content-around">
+        <div class="col-8 border bg-light p-4">
+            <h1 class="h3 mb-2 text-gray-800">Quản Lý Website</h1>
+            <form id="FormCreateNews" action="/Admin/Website/Edit" method="post">
+                <input type="number" class="form-control-plaintext" name="schoolId" readonly hidden value="@ViewBag.School.id">
+                <div class="mb-3">
+                    <label for="InputName" class="form-label">Tên Trường</label>
+                    <input type="text" class="form-control" id="InputName" name="name" value="@ViewBag.School.name">
+                </div>
+                <div class="mb-3">
+                    <label for="InputShortName" class="form-label">Tên Trường Viết Tắt</label>
+                    <input type="text" class="form-control" id="InputShortName" name="shortName" value="@ViewBag.School.shortName">
+                </div>
+                <div class="mb-3">
+                    <label for="InputCode" class="form-label">Mã Trường</label>
+                    <input type="text" class="form-control" id="InputCode" name="code" value="@ViewBag.School.code">
+                </div>
+                <div class="mb-3">
+                    <label for="InputLogoUrl" class="form-label">LogoUrl</label>
+                    <input type="text" class="form-control" id="InputLogoUrl" name="logoUrl" value="@ViewBag.School.logoUrl">
+                </div>
+                <div class="mb-3">
+                    <label for="InputFaviconUrl" class="form-label">FaviconUrl</label>
+                    <input type="text" class="form-control" id="InputFaviconUrl" name="faviconUrl" value="@ViewBag.School.faviconUrl">
+                </div>
+                <div class="mb-3">
+                    <label for="InputAddress" class="form-label">Địa Chỉ</label>
+                    <input type="text" class="form-control" id="InputAddress" name="addressText" value="@ViewBag.School.addressObj.addressText">
+                </div>
+                <div class="mb-3">
+                    <label for="InputHotline" class="form-label">Hotline</label>
+                    <input type="text" class="form-control" id="InputHotline" name="hotline" value="@ViewBag.School.hotline">
+                </div>
+                <div class="mb-3">
+                    <label for="InputPhone" class="form-label">Phone</label>
+                    <input type="text" class="form-control" id="InputPhone" name="phone" value="@ViewBag.School.phone">
+                </div>
+                <div class="mb-3">
+                    <label for="InputEmail" class="form-label">Email</label>
+                    <input type="text" class="form-control" id="InputEmail" name="email" value="@ViewBag.School.email">
+                </div>
+                <input type="submit" class="btn btn-primary" value="Cập Nhật">
+            </form>
         </div>
-        <div class="mb-3">
-            <label for="InputShortName" class="form-label">Tên Trường Viết Tắt</label>
-            <input type="text" class="form-control" id="InputShortName" name="shortName" value="@ViewBag.School.shortName">
-        </div>
-        <div class="mb-3">
-            <label for="InputCode" class="form-label">Mã Trường</label>
-            <input type="text" class="form-control" id="InputCode" name="code" value="@ViewBag.School.code">
-        </div>
-        <div class="mb-3">
-            <label for="InputLogoUrl" class="form-label">LogoUrl</label>
-            <input type="text" class="form-control" id="InputLogoUrl" name="logoUrl" value="@ViewBag.School.logoUrl">
-        </div>
-        <div class="mb-3">
-            <label for="InputFaviconUrl" class="form-label">FaviconUrl</label>
-            <input type="text" class="form-control" id="InputFaviconUrl" name="faviconUrl" value="@ViewBag.School.faviconUrl">
-        </div>
-        <div class="mb-3">
-            <label for="InputAddress" class="form-label">Địa Chỉ</label>
-            <input type="text" class="form-control" id="InputAddress" name="addressText" value="@ViewBag.School.addressObj.addressText">
-        </div>
-        <div class="mb-3">
-            <label for="InputHotline" class="form-label">Hotline</label>
-            <input type="text" class="form-control" id="InputHotline" name="hotline" value="@ViewBag.School.hotline">
-        </div>
-        <div class="mb-3">
-            <label for="InputPhone" class="form-label">Phone</label>
-            <input type="text" class="form-control" id="InputPhone" name="phone" value="@ViewBag.School.phone">
-        </div>
-        <div class="mb-3">
-            <label for="InputEmail" class="form-label">Email</label>
-            <input type="text" class="form-control" id="InputEmail" name="email" value="@ViewBag.School.email">
-        </div>
-        <input type="submit" class="btn btn-primary" value="Cập Nhật">
-    </form>
+    </div>
 </div>
 
 @section scripts {

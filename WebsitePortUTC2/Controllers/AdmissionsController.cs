@@ -11,16 +11,25 @@ namespace WebsitePortUTC2.Controllers
     {
         private readonly INewsService _newsService;
         private readonly ISchoolService _schoolService;
+        private readonly ICategoryService _categoryService;
 
-        public AdmissionsController(INewsService newsService, ISchoolService schoolService)
+        public AdmissionsController(INewsService newsService, ISchoolService schoolService, ICategoryService categoryService)
         {
             _newsService = newsService;
             _schoolService = schoolService;
+            _categoryService = categoryService;
         }
+        [Route("Admissions")]
         public async Task<IActionResult> Index(int? page)
         {
             try
             {
+                #region GetCategoriesListByStatus 
+                var categories = await _categoryService.GetListByStatus(1);
+                ViewBag.Categories = categories;
+                ViewBag.CategoriesCount = categories.Count;
+                #endregion
+
                 #region data 4 news
                 var news = await _newsService.GetListNewsByPaging(null, null, 1, null);
                 // Thực hiện các thao tác với dữ liệu provinces

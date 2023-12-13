@@ -18,7 +18,7 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="header-brand col-12 col-xl-3 d-flex justify-content-between">
-                    <a href="~/Home/Index" class="d-flex text-decoration-none">
+                    <a href="~/Home" class="d-flex text-decoration-none">
                         <img src="~/images/Logo.png" alt="Logo" width="50" height="50">
                         <div class="header-brand-text text-uppercase ms-2 fw-bold" style="font-size: 0.9rem;">
                             <p class=" mb-0 text-white">Trường đại học giao thông vận tải</p>
@@ -36,7 +36,7 @@
                             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                                 <ul class="navbar-nav me-auto mb-2 mb-lg-0 navigation">
                                     <li class="nav-item">
-                                        <a class="nav-link fw-bold go-to-home" asp-controller="Home" asp-action="Index">Home</a>
+                                        <a class="nav-link fw-bold go-to-home" href="/Home">Home</a>
                                     </li>
                                     <li class="nav-item"><a class="nav-link fw-bold" href="#">Sinh viên</a></li>
                                     <li class="nav-item"><a class="nav-link fw-bold" href="#">Cựu sinh Viên</a></li>
@@ -59,7 +59,7 @@
     <section class="second-navbar py-4">
         <ul class="nav justify-content-center navigation">
             <li class="nav-item">
-                <a class="nav-link text-black fw-bold general-introduction" href="~/Home/Introduction">Giới thiệu chung</a>
+                <a class="nav-link text-black fw-bold general-introduction" href="/Introduction">Giới thiệu chung</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link text-black fw-bold" href="#">Đào tạo</a>
@@ -68,10 +68,10 @@
                 <a class="nav-link text-black fw-bold" href="#">Đời sống sinh viên</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link text-black fw-bold admissions" asp-controller="Admissions" asp-action="Index">Tuyển sinh</a>
+                <a class="nav-link text-black fw-bold admissions" href="/Admissions">Tuyển sinh</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link text-black fw-bold" href="#">Tin tức - Sự kiện</a>
+                <a class="nav-link text-black fw-bold" href="/Admissions">Tin tức - Sự kiện</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link text-black fw-bold" href="#">Lịch công tác</a>
@@ -88,10 +88,10 @@
                 <h3 class="text-uppercase text-center pb-5 m-0">Tin tức & sự kiện</h3>
                 <div class="row">
                     <div class="col-12 col-lg-6 bg-white p-3 rounded-4 news-first my-3">
-                        <a href="/Admin/News/Detail/@ViewBag.news[0].id" class="news-link text-decoration-none text-black">
+                        <a href="/News/@ViewBag.news[0].nameSlug-@ViewBag.news[0].id" class="news-link text-decoration-none text-black">
                             <div class="news-poster position-relative" style="padding-bottom: 50%;">
                                 @{
-                                    if (ViewBag.news[0].imageObj.relativeUrl == null)
+                                    if (ViewBag.news[0].imageObj == null)
                                     {
                                         <img src="https://www.survivorsuk.org/wp-content/uploads/2017/01/no-image.jpg" class="position-absolute w-100 h-100 rounded-4" style="object-fit: cover;" alt="">
                                     }
@@ -110,7 +110,7 @@
                         @{
                             for(int i = 1; i < 4; i++) {
                                 <div class="px-3">
-                                    <a href="/Admin/News/Detail/@ViewBag.news[i].id" class="news-link text-decoration-none d-block my-3 text-black">
+                                    <a href="/News/@ViewBag.news[i].nameSlug-@ViewBag.news[i].id" class="news-link text-decoration-none d-block my-3 text-black">
                                         <div class="row bg-white p-3 rounded-4">
                                             <div class="col-4 p-0">
                                                 <div class="news-poster position-relative" style="padding-bottom: 75%;">
@@ -139,7 +139,7 @@
                     </div>
                 </div>
                 <div class="row justify-content-between my-3 rounded-4">
-                    <a href="/Admissions/Index" class="btn btn-light rounded-4">Xem tất cả tin tức</a>
+                    <a href="/Admissions" class="btn btn-light rounded-4">Xem tất cả tin tức</a>
                 </div>
             </div>
 
@@ -154,7 +154,7 @@
                                 <img src="~/images/link1.jpg" class="position-absolute w-100 h-100" alt="" style="object-fit: cover;">
                             </div>
                             <div class="d-flex justify-content-center my-3">
-                                <a href="#" class="btn btn-light">Xem thêm ></a>
+                                <a href="https://moet.gov.vn/Pages/home.aspx" target="_blank" class="btn btn-light">Xem thêm ></a>
                             </div>
                         </div>
                     </div>
@@ -164,7 +164,7 @@
                                 <img src="~/images/link2.png" class="position-absolute w-100 h-100" alt="" style="object-fit: cover;">
                             </div>
                             <div class="d-flex justify-content-center my-3">
-                                <a href="#" class="btn btn-light">Xem thêm ></a>
+                                <a href="https://www.utc.edu.vn/" target="_blank" class="btn btn-light">Xem thêm ></a>
                             </div>
                         </div>
                     </div>
@@ -174,7 +174,7 @@
                                 <img src="~/images/link3.png" class="position-absolute w-100 h-100" alt="" style="object-fit: cover;">
                             </div>
                             <div class="d-flex justify-content-center my-3">
-                                <a href="#" class="btn btn-light">Xem thêm ></a>
+                                <a href="https://vieclam.utc2.edu.vn/" target="_blank" class="btn btn-light">Xem thêm ></a>
                             </div>
                         </div>
                     </div>

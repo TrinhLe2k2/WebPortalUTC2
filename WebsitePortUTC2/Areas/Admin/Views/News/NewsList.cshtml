@@ -8,7 +8,7 @@
 
     <!-- Page Heading -->
     <h1 class="h3 mb-2 text-gray-800">Danh Sách Tin Tức</h1>
-    <a href="~/Admin/News/Create" class="btn btn-success">Thêm Tin Tức Mới</a>
+    <a href="/news/create" class="btn btn-success">Thêm Tin Tức Mới</a>
     <p class="mb-4"></p>
 
     <!-- DataTales Example -->
@@ -84,7 +84,7 @@
                                 { 
                                     data: 'name',
                                     render: function (data, type, row) {
-                                        return '<p class="limit-tag-p"><a class="text-decoration-none" href="/Admin/News/Detail/' + row.id + '">' + data + '</a></p>';
+                                        return `<p class="limit-tag-p"><a class="text-decoration-none" href="/News/${row.nameSlug}-${row.id}">${data}</a></p>`;
                                     }
                                 },
                                 { 
@@ -106,7 +106,7 @@
                                 {
                                     data: null,
                                     render: function (data, type, row) {
-                                        return `<div><a href="/Admin/News/Edit/${data.id}" class="btn btn-warning mb-2">Sửa</a><a data-delete="${data.id}" class="btn btn-danger cursorPointer" onclick="handleDelete(this)">Xóa</a></div>`;
+                                        return `<div><a href="/news/edit/${data.id}" class="btn btn-warning mb-2">Sửa</a><a data-delete="${data.id}" class="btn btn-danger cursorPointer" onclick="handleDelete(this)">Xóa</a></div>`;
                                     }
                                 }
                             ]

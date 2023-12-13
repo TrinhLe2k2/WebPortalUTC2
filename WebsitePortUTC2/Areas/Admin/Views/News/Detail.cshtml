@@ -39,7 +39,7 @@
                     @{
                         for (int i = 0; i < ViewBag.newsCount; i++)
                         {
-                            <a href="/Admin/News/Detail/@ViewBag.news[i].id" class="news-link text-decoration-none d-block mb-3 text-black">
+                            <a href="/News/@ViewBag.news[i].nameSlug-@ViewBag.news[i].id" class="news-link text-decoration-none d-block mb-3 text-black">
                                 <div class="row bg-white rounded-4 p-3">
                                     <div class="col-4">
                                         <div class="news-poster position-relative w-100 h-100" style="padding-bottom: 75%;">

@@ -5,36 +5,94 @@
 }
 
 <div class="container">
-    <h1 class="h3 mb-2 text-gray-800">Chỉnh Sửa Tin Tức</h1>
-    <form id="FormCreateNews" action="~/Admin/News/Edit" method="post">
-        <input type="number" id="InputId" class="form-control" name="newsId" hidden readonly value="@Model.id">
-        <input type="text" class="form-control" hidden name="publishedAt" value="@Model.publishedAt">
-        <div class="mb-3">
-            <label for="InputName" class="form-label">Tiêu Đề</label>
-            <input type="text" class="form-control" id="InputName" name="name" value="@Model.name">
+    <div class="row justify-content-around">
+        <div class="col-8 border bg-light p-4">
+            <h1 class="h3 mb-2 text-gray-800">Chỉnh Sửa Tin Tức</h1>
+            <form id="FormCreateNews" action="~/Admin/News/Edit" method="post" enctype="multipart/form-data">
+                <input type="number" id="InputId" class="form-control" name="newsId" hidden readonly value="@Model.id">
+                <input type="text" class="form-control" hidden name="publishedAt" value="@Model.publishedAt">
+                <div class="mb-3">
+                    <label for="InputName" class="form-label">Tiêu Đề</label>
+                    <input type="text" class="form-control" id="InputName" name="name" value="@Model.name">
+                </div>
+                <div class="mb-3">
+                    <label for="InputDescription" class="form-label">Mô Tả</label>
+                    <input type="text" class="form-control" id="InputDescription" name="description" value="@Model.description">
+                </div>
+                <div class="mb-3">
+                    <label for="InputCategory" data-id="@Model.newsCategoryId" class="form-label">Thể Loại</label>
+                    <select class="form-select" id="InputCategory" name="newsCategoryId">
+                        @{
+                            for (var i = 0; i < ViewBag.CategoriesCount; i++)
+                            {
+                                <option value="@ViewBag.Categories[i].id">@ViewBag.Categories[i].name</option>
+                            }
+                        }
+                    </select>
+                    <script>
+                        var newsCategoryId = document.querySelector('label[for="InputCategory"]').dataset.id;
+                        var optionsSelect = document.querySelectorAll('#InputCategory option');
+                        optionsSelect.forEach(item => {
+                            if (newsCategoryId == item.value) {
+                                item.setAttribute("selected", "selected");
+                            }
+                        });
+                    </script>
+
+                </div>
+                <div class="mb-3">
+                    <label for="InputMetaUrl" class="form-label">URL</label>
+                    <input type="text" class="form-control" id="InputMetaUrl" name="metaUrl" value="@Model.metaUrl">
+                </div>
+                <div class="mb-3">
+                    <input type="number" class="form-control" name="imageId" value="@Model.imageId" hidden readonly>
+                    <input type="file" class="form-control" id="InputPoster" name="newPoster" onchange="previewImage()" hidden readonly>
+                    <label for="InputPoster" id="imageLabel">
+                        <div class="mb-2">Poster</div>
+                        @{
+                            if (Model.imageObj == null)
+                            {
+                                    <img id="imagePreview" width="400" height="200" class="cursorPointer shadow" style="object-fit: cover" src="https://www.survivorsuk.org/wp-content/uploads/2017/01/no-image.jpg" alt="Preview">
+                            }
+                            else
+                            {
+                                    <img id="imagePreview" width="400" height="200" class="cursorPointer shadow" style="object-fit: cover" src="@Model.imageObj.relativeUrl" alt="Preview">
+                            }
+                        }
+                    </label>
+                </div>
+                <input type="submit" class="btn btn-primary" value="Submit">
+            </form>
         </div>
-        <div class="mb-3">
-            <label for="InputDescription" class="form-label">Mô Tả</label>
-            <input type="text" class="form-control" id="InputDescription" name="description" value="@Model.description">
-        </div>
-        <div class="mb-3">
-            <label for="InputImageId" class="form-label">Image Id</label>
-            <input type="number" class="form-control" id="InputImageId" name="imageId" value="@Model.imageId">
-        </div>
-        <div class="mb-3">
-            <label for="InputCategory" class="form-label">Thể Loại</label>
-            <input type="number" class="form-control" id="InputCategory" name="newsCategoryId" value="@Model.newsCategoryId">
-        </div>
-        <div class="mb-3">
-            <label for="InputMetaUrl" class="form-label">URL</label>
-            <input type="text" class="form-control" id="InputMetaUrl" name="metaUrl" value="@Model.metaUrl">
-        </div>
-        <input type="submit" class="btn btn-primary" value="Submit">
-    </form>
+    </div>
 </div>
+
 
 @section Scripts {
     <script>
+        function previewImage() {
+            var inputFile = document.getElementById('InputPoster');
+            var imageLabel = document.getElementById('imageLabel');
+            var imagePreview = document.getElementById('imagePreview');
+
+            var imgUpdate = document.querySelector('input[name="imageId"]');
+            imgUpdate.value = -1;
+
+
+            if (inputFile.files && inputFile.files[0]) {
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    // Thay đổi thuộc tính src của thẻ <img>
+                    imagePreview.src = e.target.result;
+
+                    // Hiển thị label chứa hình ảnh
+                    imageLabel.style.display = 'block';
+                };
+
+                // Đọc dữ liệu của tệp được chọn
+                reader.readAsDataURL(inputFile.files[0]);
+            }
+        }
         Active(".collapse-News", ".collapse-News__edit");
     </script>
 }

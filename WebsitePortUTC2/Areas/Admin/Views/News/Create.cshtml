@@ -5,34 +5,68 @@
 }
 
 <div class="container">
-    <h1 class="h3 mb-2 text-gray-800">Thêm Tin Mới</h1>
-    <form id="FormCreateNews" action="~/Admin/News/Create" method="post" enctype="multipart/form-data">
-        <div class="mb-3">
-            <label for="InputName" class="form-label">Tiêu Đề</label>
-            <input type="text" class="form-control" id="InputName" name="name">
+    <div class="row justify-content-around">
+        <div class="col-8 border bg-light p-4">
+            <h1 class="h3 mb-2 text-gray-800">Thêm Tin Mới</h1>
+            <form id="FormCreateNews" action="~/Admin/News/Create" method="post" enctype="multipart/form-data">
+                <div class="mb-3">
+                    <label for="InputName" class="form-label">Tiêu Đề</label>
+                    <input type="text" class="form-control" id="InputName" name="name">
+                </div>
+                <div class="mb-3">
+                    <label for="InputDescription" class="form-label">Mô Tả</label>
+                    <input type="text" class="form-control" id="InputDescription" name="description">
+                </div>
+                <div class="mb-3">
+                    <label for="InputCategory" class="form-label">Thể Loại</label>
+                    <select class="form-select" id="InputCategory" name="newsCategoryId">
+                        <option value="@ViewBag.Categories[0].id" selected>@ViewBag.Categories[0].name</option>
+                        @{
+                            for (var i = 1; i < ViewBag.CategoriesCount; i++)
+                            {
+                                <option value="@ViewBag.Categories[i].id">@ViewBag.Categories[i].name</option>
+                            }
+                        }
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label for="InputMetaUrl" class="form-label">URL(Slug)</label>
+                    <input type="text" class="form-control" id="InputMetaUrl" name="metaUrl">
+                </div>
+                <div class="mb-3">
+                    <input type="file" class="form-control" id="InputPoster" name="poster" onchange="previewImage()" hidden>
+                    <label for="InputPoster" id="imageLabel">
+                        <div class="mb-2">Poster</div>
+                        <img id="imagePreview" width="400" height="200" class="cursorPointer shadow" style="object-fit: cover" src="https://www.survivorsuk.org/wp-content/uploads/2017/01/no-image.jpg" alt="Preview">
+                    </label>
+                </div>
+                <input type="submit" class="btn btn-primary" value="Submit">
+            </form>
         </div>
-        <div class="mb-3">
-            <label for="InputDescription" class="form-label">Mô Tả</label>
-            <input type="text" class="form-control" id="InputDescription" name="description">
-        </div>
-        <div class="mb-3">
-            <label for="InputCategory" class="form-label">Thể Loại</label>
-            <input type="number" class="form-control" id="InputCategory" name="newsCategoryId">
-        </div>
-        <div class="mb-3">
-            <label for="InputMetaUrl" class="form-label">URL</label>
-            <input type="text" class="form-control" id="InputMetaUrl" name="metaUrl">
-        </div>
-        <div class="mb-3">
-            <label for="InputPoster" class="form-label">Poster</label>
-            <input type="file" class="form-control" id="InputPoster" name="poster">
-        </div>
-        <input type="submit" class="btn btn-primary" value="Submit">
-    </form>
+    </div>
 </div>
 
 @section Scripts {
     <script>
+        function previewImage() {
+            var inputFile = document.getElementById('InputPoster');
+            var imageLabel = document.getElementById('imageLabel');
+            var imagePreview = document.getElementById('imagePreview');
+
+            if (inputFile.files && inputFile.files[0]) {
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    // Thay đổi thuộc tính src của thẻ <img>
+                    imagePreview.src = e.target.result;
+
+                    // Hiển thị label chứa hình ảnh
+                    imageLabel.style.display = 'block';
+                };
+
+                // Đọc dữ liệu của tệp được chọn
+                reader.readAsDataURL(inputFile.files[0]);
+            }
+        }
         Active(".collapse-News", ".collapse-News__create");
     </script>    
 }
