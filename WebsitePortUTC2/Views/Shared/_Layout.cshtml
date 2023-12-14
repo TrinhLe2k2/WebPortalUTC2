@@ -12,6 +12,8 @@
     <link rel="stylesheet" href="~/css/slick.css">
     <link rel="stylesheet" href="~/css/slick-theme.css">
     <link rel="stylesheet" href="~/css/bootstrap.min.css">
+    @* aos *@
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 </head>
 <body>
     <section id="header" class="px-4 py-4">
@@ -149,7 +151,7 @@
         <div class="quickLink py-5 bg-light">
             <div class="container py-5">
                 <h3 class="text-uppercase text-center pb-5">Liên kết nhanh</h3>
-                <div class="row">
+                <div class="row g-2">
                     <div class="col-12 col-sm-6 col-md-4">
                         <div class="bg-white p-3 rounded-4 shadow">
                             <div class="position-relative" style="padding-bottom: 55%;">
@@ -301,9 +303,12 @@
     <script src="~/js/slick.min.js"></script>
     <script src="~/js/handleData.js"></script>
     <script src="~/js/bootstrap.bundle.min.js"></script>
+    @* aos *@
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     @await RenderSectionAsync("Scripts", required: false)
 
     <script>
+        AOS.init();
         $(document).ready(function () {
             $('.single-item').each(function () {
                 $(this).slick({
