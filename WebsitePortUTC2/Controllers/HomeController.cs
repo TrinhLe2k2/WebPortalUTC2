@@ -21,9 +21,18 @@ namespace WebsitePortUTC2.Controllers
             try
             {
                 #region data 4 news
-                var news = await _newsService.GetAllNews();
-                // Thực hiện các thao tác với dữ liệu provinces
-                ViewBag.news = news;
+                var news = await _newsService.GetListNewsByPaging(null, null, 1, 4);
+                if(news != null)
+                {
+                    ViewBag.FourNews = (news.data.Count < 4) ? news.data.Count : 4;
+                    ViewBag.news = news.data;
+                }
+                else
+                {
+                    ViewBag.FourNews = 0;
+                    ViewBag.news = null;
+                }
+                
                 #endregion
 
                 #region data school
@@ -45,9 +54,17 @@ namespace WebsitePortUTC2.Controllers
             try
             {
                 #region data 4 news
-                var news = await _newsService.GetAllNews();
-                // Thực hiện các thao tác với dữ liệu provinces
-                ViewBag.news = news;
+                var news = await _newsService.GetListNewsByPaging(null, null, 1, 4);
+                if (news != null)
+                {
+                    ViewBag.FourNews = (news.data.Count < 4) ? news.data.Count : 4;
+                    ViewBag.news = news.data;
+                }
+                else
+                {
+                    ViewBag.FourNews = 0;
+                    ViewBag.news = null;
+                }
                 #endregion
 
                 #region data school

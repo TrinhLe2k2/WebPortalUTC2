@@ -78,19 +78,19 @@ namespace WebsitePortUTC2.Areas.Admin.Controllers
         [HttpPost]
         public async Task<IActionResult> Edit(int newsId, string name, string description, int imageId, int newsCategoryId, string metaUrl, string publishedAt, IFormFile newPoster)
         {
-            var postimg = 0;
+            var newImgId = -1;
             if (newPoster != null)
             {
                 var respostimg = await _imageService.PostImage("poster", newPoster);
-                postimg = respostimg.data.id;
+                newImgId = respostimg.data.id;
             }
-            if(postimg == 0)
+            if(newImgId == -1 && imageId == 0)
             {
-                var res = await _newsService.PutNews(newsId, name, description, imageId, newsCategoryId, metaUrl, publishedAt);
+                var res = await _newsService.PutNews(newsId, name, description, null, newsCategoryId, metaUrl, publishedAt);
             }
             else
             {
-                var res = await _newsService.PutNews(newsId, name, description, postimg, newsCategoryId, metaUrl, publishedAt);
+                var res = await _newsService.PutNews(newsId, name, description, newImgId, newsCategoryId, metaUrl, publishedAt);
             }
             return RedirectToAction("NewsList");
         }
@@ -110,10 +110,22 @@ namespace WebsitePortUTC2.Areas.Admin.Controllers
             try
             {
                 #region data 4 news
-                var news = await _newsService.GetAllNews();
-                // Thực hiện các thao tác với dữ liệu provinces
-                ViewBag.news = news;
-                ViewBag.newsCount = news.Count < 10 ? news.Count : 10;
+                //var news = await _newsService.GetAllNews();
+                //// Thực hiện các thao tác với dữ liệu provinces
+                //ViewBag.news = news;
+                var news = await _newsService.GetListNewsByPaging(null, null, 1, 10);
+                if (news != null)
+                {
+                    ViewBag.newsCount = news.data.Count < 10 ? news.data.Count : 10;
+                    ViewBag.FourNews = (news.data.Count < 4) ? news.data.Count : 4;
+                    ViewBag.news = news.data;
+                }
+                else
+                {
+                    ViewBag.newsCount = 0;
+                    ViewBag.FourNews = 0;
+                    ViewBag.news = null;
+                }
                 #endregion
 
                 #region data school

@@ -11,7 +11,7 @@
                 <div class="d-flex justify-content-between align-items-center">
                     <h5>Tin Tuyển Sinh</h5>
                     <div>
-                        <select id="filterSelect" class="form-select">
+                        <select id="filterSelect" class="form-select" onchange="handleFilter(this)">
                             <option selected value="0">Filter</option>
                             @{
                                 for (var i = 0; i < ViewBag.CategoriesCount; i++)
@@ -26,10 +26,10 @@
                     <div>
                         <a href="" class="news-link text-decoration-none d-block my-3 text-black">
                             <div class="row bg-white rounded-4">
-                                <div class="news-poster position-relative col-3 d-none d-lg-block" style="padding-bottom: 15%;">
+                                <div class="news-poster position-relative col-12 col-lg-3 d-none d-lg-block" style="padding-bottom: 15%;">
                                     <img src="~/images/news1.png" class="position-absolute w-100 h-100 rounded-4" style="object-fit: cover;" alt="">
                                 </div>
-                                <div class="news-description col-9">
+                                <div class="news-description col-12 col-lg-9">
                                     <div class="ms-3">
                                         <p class="news-title fw-bold limit-tag-p">item.name</p>
                                         <p class="news-content limit-tag-p">item.description</p>
@@ -85,116 +85,20 @@
     <script>
         var record = document.querySelector('span[data-size]').dataset.size;
         var txtSearch = document.querySelector('span[data-search]').dataset.search;
-        $(document).ready(function () {
-            $('#filterSelect').change(function () {
-                // Lấy giá trị đã chọn
-                var selectedValue = $(this).val();
-
-                // Xử lý logic dựa trên giá trị đã chọn
-                console.log('Selected Value: ' + selectedValue);
-
-                // Gọi hàm hoặc thực hiện các thao tác khác tùy thuộc vào giá trị đã chọn
-                handleSelectedValue(selectedValue);
-            });
-        });
-
-        // Hàm xử lý logic dựa trên giá trị đã chọn
-        function handleSelectedValue(value) {
-            // Thực hiện các thao tác tương ứng với giá trị đã chọn
-            switch (value) {
-                case '1':
-                    // Xử lý khi chọn Name
-                    console.log('Filter by Name');
-                    break;
-                case '2':
-                    // Xử lý khi chọn Type
-                    console.log('Filter by Type');
-                    break;
-                default:
-                    // Xử lý khi chọn Filter (giá trị mặc định)
-                    console.log('No filter selected');
-                    break;
-            }
-        }
 
         ResetActiveNavLink();
         ActiveNavLink(".admissions");
-
-        // function GetAPIForPageNews(page, filter, record) {
-        //     var url = 'https://localhost:7115/Admissions/GetNewsListByPaging?page=';
-        //     url += page;
-        //     url += `&filter=` + filter;
-        //     url += `&record=` + record;
-        //     fetch(url, {
-        //         method: 'GET',
-        //         headers: {
-        //             'Content-Type': 'application/json'
-        //         },
-        //     })
-        //         .then(response => response.json())
-        //         .then(data => {
-        //             let totalPage = Math.ceil(data.data2nd / record);
-        //             let pageNewslist = document.querySelector('.newsListPage');
-        //             let htmlNewsList = '';
-        //             for (let i = 0; i<data.data.length; i++) {
-        //                 let urlImg = (data.data[i].imageObj != null) ? data.data[i].imageObj.relativeUrl : "https://www.survivorsuk.org/wp-content/uploads/2017/01/no-image.jpg";
-        //                 htmlNewsList += `
-        //                             <div>
-        //                                  <a href="/News/${data.data[i].nameSlug}-${data.data[i].id}" class="news-link text-decoration-none d-block my-3 text-black">
-        //                                     <div class="row bg-white rounded-4">
-        //                                         <div class="news-poster position-relative col-3 d-none d-lg-block" style="padding-bottom: 15%;">
-        //                                             <img src="${urlImg}" class="position-absolute w-100 h-100 rounded-4" style="object-fit: cover;" alt="">
-        //                                         </div>
-        //                                         <div class="news-description col-9">
-        //                                             <div class="ms-3">
-        //                                                 <p class="news-title fw-bold limit-tag-p">${data.data[i].name}</p>
-        //                                                 <p class="news-content limit-tag-p">${data.data[i].description}</p>
-        //                                             </div>
-        //                                         </div>
-        //                                     </div>
-        //                                 </a>
-        //                             </div>
-        //                     `;
-        //             }
-        //             pageNewslist.innerHTML = htmlNewsList;
-        //             let pageNews = document.querySelector('.PageNews');
-        //             let p = pageNews.querySelector('.pageCurrent').innerHTML = `Page ${page} / ${totalPage}`;
-        //             let navUl = pageNews.querySelector('nav ul');
-        //             let html = '';
-        //             if(page > 1){
-        //                 html += `<li class="page-item"> <a class="page-link cursorPointer" onclick="handleClickPage(this)" data-page="${page - 1}"> previous </a></li>`;
-        //             }
-        //             for (let i = 1; i <= totalPage; i++) {
-        //                 if (i == page) {
-        //                     html += `<li class="page-item"> <a class="page-link disabled bg-primary" href = "#">${i}</a></li>`;
-        //                 }
-        //                 else {
-        //                     html += `<li class="page-item"> <a class="page-link cursorPointer" onclick="handleClickPage(this)" data-page="${i}">${i}</a></li>`;
-        //                 }
-        //             }
-        //             if (page < totalPage) {
-        //                 html += `<li class="page-item" ><a class="page-link cursorPointer" onclick="handleClickPage(this)" data-page="${++page}">next</a></li>`;
-        //             }
-        //             navUl.innerHTML = html;
-        //         })
-        //         .catch(error => {
-        //             console.error('Error:', error);
-        //         });
-        // }
 
         function handleClickPage(item) {
             var filter = document.getElementById('filterSelect').value;
             GetAPIForPageNews(item.dataset.page, filter, record, txtSearch);
         }
 
-        function handleFilter() {
-            var filter = document.getElementById('filterSelect');
-            filter.addEventListener('change', function () {
-                GetAPIForPageNews(1, filter.value, record, txtSearch);
-            });
+        function handleFilter(filter) {
+            console.log(filter.value)
+            GetAPIForPageNews(1, filter.value, record, txtSearch);
         }
 
         GetAPIForPageNews(1, 0, record, txtSearch);
-        handleFilter();
     </script>
 }

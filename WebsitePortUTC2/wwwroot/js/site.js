@@ -28,49 +28,56 @@ function GetAPIForPageNews(page, filter, record, search) {
     })
         .then(response => response.json())
         .then(data => {
-            let totalPage = Math.ceil(data.data2nd / record);
-            let pageNewslist = document.querySelector('.newsListPage');
-            let htmlNewsList = '';
-            for (let i = 0; i < data.data.length; i++) {
-                let urlImg = (data.data[i].imageObj != null) ? data.data[i].imageObj.relativeUrl : "https://www.survivorsuk.org/wp-content/uploads/2017/01/no-image.jpg";
-                htmlNewsList += `
+            if (data != null) {
+                let totalPage = Math.ceil(data.data2nd / record);
+                let pageNewslist = document.querySelector('.newsListPage');
+                let htmlNewsList = '';
+                for (let i = 0; i < data.data.length; i++) {
+                    let urlImg = (data.data[i].imageObj != null) ? data.data[i].imageObj.relativeUrl : "https://www.survivorsuk.org/wp-content/uploads/2017/01/no-image.jpg";
+                    htmlNewsList += `
                                             <div>
                                                  <a href="/News/${data.data[i].nameSlug}-${data.data[i].id}" class="news-link text-decoration-none d-block my-3 text-black">
                                                     <div class="row bg-white rounded-4">
-                                                        <div class="news-poster position-relative col-3 d-none d-lg-block" style="padding-bottom: 15%;">
-                                                            <img src="${urlImg}" class="position-absolute w-100 h-100 rounded-4" style="object-fit: cover;" alt="">
+                                                        <div class="news-poster col-3 d-none d-sm-block">
+                                                            <div class="position-relative" style="padding-bottom: 60%;">
+                                                                <img src="${urlImg}" class="position-absolute w-100 h-100 rounded-4" style="object-fit: cover;" alt="">
+                                                            </div>
                                                         </div>
-                                                        <div class="news-description col-9">
-                                                            <div class="ms-3">
+                                                        <div class="news-description col-12 col-sm-9">
+                                                            <div class="">
                                                                 <p class="news-title fw-bold limit-tag-p">${data.data[i].name}</p>
-                                                                <p class="news-content limit-tag-p">${data.data[i].description}</p>
+                                                                <p class="news-content limit-tag-p mb-0">${data.data[i].description}</p>
                                                             </div>
                                                         </div>
                                                     </div>
-                                                </a>
+                                                </a><hr>
                                             </div>
                                     `;
-            }
-            pageNewslist.innerHTML = htmlNewsList;
-            let pageNews = document.querySelector('.PageNews');
-            let p = pageNews.querySelector('.pageCurrent').innerHTML = `Page ${page} / ${totalPage}`;
-            let navUl = pageNews.querySelector('nav ul');
-            let html = '';
-            if (page > 1) {
-                html += `<li class="page-item"> <a class="page-link cursorPointer" onclick="handleClickPage(this)" data-page="${page - 1}"> previous </a></li>`;
-            }
-            for (let i = 1; i <= totalPage; i++) {
-                if (i == page) {
-                    html += `<li class="page-item"> <a class="page-link disabled bg-primary" href = "#">${i}</a></li>`;
                 }
-                else {
-                    html += `<li class="page-item"> <a class="page-link cursorPointer" onclick="handleClickPage(this)" data-page="${i}">${i}</a></li>`;
+                pageNewslist.innerHTML = htmlNewsList;
+                let pageNews = document.querySelector('.PageNews');
+                let p = pageNews.querySelector('.pageCurrent').innerHTML = `Page ${page} / ${totalPage}`;
+                let navUl = pageNews.querySelector('nav ul');
+                let html = '';
+                if (page > 1) {
+                    html += `<li class="page-item"> <a class="page-link cursorPointer" onclick="handleClickPage(this)" data-page="${page - 1}"> previous </a></li>`;
                 }
+                for (let i = 1; i <= totalPage; i++) {
+                    if (i == page) {
+                        html += `<li class="page-item"> <a class="page-link disabled bg-primary" href = "#">${i}</a></li>`;
+                    }
+                    else {
+                        html += `<li class="page-item"> <a class="page-link cursorPointer" onclick="handleClickPage(this)" data-page="${i}">${i}</a></li>`;
+                    }
+                }
+                if (page < totalPage) {
+                    html += `<li class="page-item" ><a class="page-link cursorPointer" onclick="handleClickPage(this)" data-page="${++page}">next</a></li>`;
+                }
+                navUl.innerHTML = html;
             }
-            if (page < totalPage) {
-                html += `<li class="page-item" ><a class="page-link cursorPointer" onclick="handleClickPage(this)" data-page="${++page}">next</a></li>`;
+            else {
+                alert("Không có kết quả nào được tìm thấy.")
             }
-            navUl.innerHTML = html;
         })
         .catch(error => {
             console.error('Error:', error);

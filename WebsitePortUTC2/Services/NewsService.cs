@@ -12,7 +12,7 @@ namespace WebsitePortUTC2.Services
         Task<dynamic> PostNews(string name, string description, int? newsCategoryId, string metaUrl, int? imageId);
         Task<dynamic> GetListNewsByPaging(int? NewsCategoryId, string? SearchText, int? Page, int? Record);
         Task<dynamic> Paging(int? NewsCategoryId, string? SearchText, int? Page, int? Record);
-        Task<dynamic> PutNews(int newsId, string name, string description, int imageId, int newsCategoryId, string metaUrl, string publishedAt);
+        Task<dynamic> PutNews(int newsId, string name, string description, int? imageId, int newsCategoryId, string metaUrl, string publishedAt);
         Task<bool> DeleteNews(int newsId);
     }
     public class NewsService : INewsService
@@ -66,6 +66,7 @@ namespace WebsitePortUTC2.Services
             // Trả về null hoặc giá trị mặc định tùy thuộc vào logic ứng dụng của bạn
             return null;
         }
+        // dynamic
         public async Task<dynamic> GetListNewsByPaging(int? NewsCategoryId, string? SearchText, int? Page, int? Record)
         {
             var url = "https://api-intern-test.h2aits.com/News/GetListByPaging?SequenceStatus=1";
@@ -79,13 +80,13 @@ namespace WebsitePortUTC2.Services
             var response = await httpClient.GetAsync(url);
             var content = await response.Content.ReadAsStringAsync();
             var newsApiResponse = JsonConvert.DeserializeObject<dynamic>(content);
-            //if (newsApiResponse.data != null && newsApiResponse.data.Count > 0)
-            //{
-            //    return newsApiResponse.data;
-            //}
-            return newsApiResponse;
+            if (newsApiResponse.data != null && newsApiResponse.data.Count > 0)
+            {
+                return newsApiResponse;
+            }
+            return null;
         }
-
+        // ApiResponse
         public async Task<dynamic> Paging(int? NewsCategoryId, string? SearchText, int? Page, int? Record)
         {
             try
@@ -102,7 +103,11 @@ namespace WebsitePortUTC2.Services
                 var content = await response.Content.ReadAsStringAsync();
                 var newsApiResponse = JsonConvert.DeserializeObject<ApiResponse>(content);
 
-                return newsApiResponse;
+                if (newsApiResponse.Data != null && newsApiResponse.Data.Count > 0)
+                {
+                    return newsApiResponse;
+                }
+                return null;
             }
             catch (Exception ex)
             {
@@ -149,7 +154,7 @@ namespace WebsitePortUTC2.Services
                 throw new Exception($"Error calling the API: {ex.Message}");
             }
         }
-        public async Task<dynamic> PutNews(int newsId, string name, string description, int imageId, int newsCategoryId, string metaUrl, string publishedAt)
+        public async Task<dynamic> PutNews(int newsId, string name, string description, int? imageId, int newsCategoryId, string metaUrl, string publishedAt)
         {
             try
             {
