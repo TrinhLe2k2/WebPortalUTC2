@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System.Net.Http;
 using WebsitePortUTC2.Services;
 
@@ -32,7 +33,14 @@ namespace WebsitePortUTC2.Areas.Admin.Controllers
             {
                 var putAddress = await _addressService.PutAddress(addressText);
             }
-            
+            if (res.error.code == 200)
+            {
+                TempData["SuccessMessage"] = "Success";
+            }
+            else
+            {
+                TempData["ErrorMessage"] = "Error";
+            }
             return RedirectToAction("InformationWebsite");
         }
     }

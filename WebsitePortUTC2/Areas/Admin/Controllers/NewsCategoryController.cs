@@ -24,6 +24,14 @@ namespace WebsitePortUTC2.Areas.Admin.Controllers
         public async Task<IActionResult> Create(string name)
         {
             var result = await _categoryService.PostCategory(name);
+            if (result.error?.code != null && result.error.code.ToString().StartsWith("2"))
+            {
+                TempData["Message"] = "Create: Success";
+            }
+            else
+            {
+                TempData["Message"] = "Create: Error";
+            }
             return RedirectToAction("NewsCategoryList");
         }
 
@@ -42,16 +50,29 @@ namespace WebsitePortUTC2.Areas.Admin.Controllers
         public async Task<IActionResult> Edit(int categoryId, string name, int status)
         {
             var res = await _categoryService.PutCategory(categoryId, name, status);
-            if (res.data != null)
+            if (res.error?.code != null && res.error.code.ToString().StartsWith("2"))
             {
+                TempData["Message"] = "Update: Success";
                 return RedirectToAction("NewsCategoryList");
             }
-            return View(categoryId);
+            else
+            {
+                TempData["Message"] = "Update: Error";
+                return RedirectToAction("Edit", new {id = categoryId });
+            }
         }
 
         public async Task<IActionResult> Delete(int id)
         {
             var res = await _categoryService.DeleteCategory(id);
+            if (res == true)
+            {
+                TempData["Message"] = "Delete: Success";
+            }
+            else
+            {
+                TempData["Message"] = "Delete: Error";
+            }
             return RedirectToAction("NewsCategoryList");
         }
 

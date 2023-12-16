@@ -4,6 +4,13 @@
     Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
 }
 
+<script>
+    var mess = document.querySelector('span[data-mess]').dataset.mess;
+    if (mess != "") {
+        alert(mess);
+    }
+</script>
+
 <div class="container">
     <div class="row justify-content-around">
         <div class="col-8 border bg-light p-4">

@@ -207,7 +207,11 @@
                                 <p class="m-0 text-warning">Phân hiệu tại tp. hồ chí minh</p>
                             </div>
                         </div>
-                        <p class="my-3">@ViewBag.school.addressObj.addressText</p>
+                        @if(ViewBag.school.addressObj != null)
+                        {
+                            <p class="my-3">@ViewBag.school.addressObj.addressText</p>
+                        }
+                        
                     </div>
                     <div class="col">
                         <p class="text-uppercase fw-bold">Đào tạo</p>

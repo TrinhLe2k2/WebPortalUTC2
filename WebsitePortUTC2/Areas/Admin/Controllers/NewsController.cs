@@ -1,7 +1,10 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Http.HttpResults;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.Text.Json;
 using WebsitePortUTC2.Services;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace WebsitePortUTC2.Areas.Admin.Controllers
 {
@@ -49,10 +52,26 @@ namespace WebsitePortUTC2.Areas.Admin.Controllers
             if(postimg == 0)
             {
                 var result = await _newsService.PostNews(name, description, newsCategoryId, metaUrl, null);
+                if(result.error?.code != null && result.error.code.ToString().StartsWith("2"))
+                {
+                    TempData["Message"] = "Post: Success";
+                }
+                else
+                {
+                    TempData["Message"] = "Post: Error";
+                }
             }
             else
             {
                 var result = await _newsService.PostNews(name, description, newsCategoryId, metaUrl, postimg);
+                if (result.error?.code != null && result.error.code.ToString().StartsWith("2"))
+                {
+                    TempData["Message"] = "Post: Success";
+                }
+                else
+                {
+                    TempData["Message"] = "Post: Error";
+                }
             }
             return RedirectToAction("NewsList");
         }
@@ -84,15 +103,36 @@ namespace WebsitePortUTC2.Areas.Admin.Controllers
                 var respostimg = await _imageService.PostImage("poster", newPoster);
                 newImgId = respostimg.data.id;
             }
-            if(newImgId == -1 && imageId == 0)
+            if(newImgId == -1)
             {
-                var res = await _newsService.PutNews(newsId, name, description, null, newsCategoryId, metaUrl, publishedAt);
+                var res = await _newsService.PutNews(newsId, name, description, imageId, newsCategoryId, metaUrl, publishedAt);
+                
+                if (res.error?.code != null && res.error.code.ToString().StartsWith("2"))
+                {
+                    TempData["Message"] = "Update: Success";
+                    return RedirectToAction("NewsList");
+                }
+                else
+                {
+                    TempData["Message"] = "Update: Error";
+                    return RedirectToAction("Edit", new { id = newsId });
+                }
             }
             else
             {
                 var res = await _newsService.PutNews(newsId, name, description, newImgId, newsCategoryId, metaUrl, publishedAt);
+                
+                if (res.error?.code != null && res.error.code.ToString().StartsWith("2"))
+                {
+                    TempData["Message"] = "Update: Success";
+                    return RedirectToAction("NewsList");
+                }
+                else
+                {
+                    TempData["Message"] = "Update: Error";
+                    return RedirectToAction("Edit", new { id = newsId });
+                }
             }
-            return RedirectToAction("NewsList");
         }
 
         public async Task<IActionResult> Delete(int id)
@@ -107,39 +147,35 @@ namespace WebsitePortUTC2.Areas.Admin.Controllers
         [Route("News/{slug}-{id:int}")]
         public async Task<IActionResult> Detail(int id)
         {
-            try
+            #region data 4 news
+            var news = await _newsService.GetListNewsByPaging(null, null, 1, 10);
+            if (news != null)
             {
-                #region data 4 news
-                //var news = await _newsService.GetAllNews();
-                //// Thực hiện các thao tác với dữ liệu provinces
-                //ViewBag.news = news;
-                var news = await _newsService.GetListNewsByPaging(null, null, 1, 10);
-                if (news != null)
-                {
-                    ViewBag.newsCount = news.data.Count < 10 ? news.data.Count : 10;
-                    ViewBag.FourNews = (news.data.Count < 4) ? news.data.Count : 4;
-                    ViewBag.news = news.data;
-                }
-                else
-                {
-                    ViewBag.newsCount = 0;
-                    ViewBag.FourNews = 0;
-                    ViewBag.news = null;
-                }
-                #endregion
+                ViewBag.newsCount = news.data.Count < 10 ? news.data.Count : 10;
+                ViewBag.FourNews = (news.data.Count < 4) ? news.data.Count : 4;
+                ViewBag.news = news.data;
+            }
+            else
+            {
+                ViewBag.newsCount = 0;
+                ViewBag.FourNews = 0;
+                ViewBag.news = null;
+            }
+            #endregion
 
-                #region data school
-                var school = await _schoolService.GetSchoolAsync();
-                ViewBag.school = school;
-                #endregion
+            #region data school
+            var school = await _schoolService.GetSchoolAsync();
+            ViewBag.school = school;
+            #endregion
 
-                var detail = await _newsService.GetNewsByID(id);
+            var detail = await _newsService.GetNewsByID(id);
+            if (detail.status == 1)
+            {
                 ViewBag.detail = detail;
                 return View();
             }
-            catch (Exception ex)
+            else
             {
-                // Xử lý exception, có thể ghi log, hiển thị thông báo lỗi, vv.
                 return RedirectToAction("Error");
             }
         }

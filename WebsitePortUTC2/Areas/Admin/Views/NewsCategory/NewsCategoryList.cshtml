@@ -3,7 +3,12 @@
     ViewData["Title"] = "NewsCategoryList";
     Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
 }
-
+<script>
+    var mess = document.querySelector('span[data-mess]').dataset.mess;
+    if (mess != "") {
+        alert(mess);
+    }
+</script>
 
 <div class="container-fluid">
 
