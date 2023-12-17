@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using WebsitePortUTC2.Models.Authentication;
 
 namespace WebsitePortUTC2.Areas.Admin.Controllers
 {
@@ -9,6 +10,7 @@ namespace WebsitePortUTC2.Areas.Admin.Controllers
     {
         //[Route("")]
         [Route("HomeAdmin")]
+        [Authentication]
         public IActionResult Index()
         {
             return View();

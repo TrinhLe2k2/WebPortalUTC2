@@ -83,13 +83,22 @@ namespace WebsitePortUTC2.Controllers
         [HttpPost]
         public IActionResult Login(string email, string pass)
         {
-            if(email == "email@example.com" && pass == "123")
+            if(HttpContext.Session.GetString("UserName") == null)
             {
-                return Redirect("/HomeAdmin");
+                if (email == "email@example.com" && pass == "123")
+                {
+                    HttpContext.Session.SetString("UserName", email);
+                    return Redirect("/HomeAdmin");
+                }
             }
             return RedirectToAction("Index");
         }
-
+        public IActionResult Logout()
+        {
+            HttpContext.Session.Clear();
+            HttpContext.Session.Remove("UserName");
+            return RedirectToAction("Index");
+        }
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {

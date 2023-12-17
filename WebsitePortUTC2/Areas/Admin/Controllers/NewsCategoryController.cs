@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using WebsitePortUTC2.Models.Authentication;
 using WebsitePortUTC2.Services;
 
 namespace WebsitePortUTC2.Areas.Admin.Controllers
@@ -13,6 +14,7 @@ namespace WebsitePortUTC2.Areas.Admin.Controllers
         }
 
         [Route("NewsCategory/newsCategorylist")]
+        [Authentication]
         public IActionResult NewsCategoryList()
         {
             var newsCategoryList = _categoryService.GetCategoryById(1);
@@ -21,6 +23,7 @@ namespace WebsitePortUTC2.Areas.Admin.Controllers
         }
 
         [HttpPost]
+        [Authentication]
         public async Task<IActionResult> Create(string name)
         {
             var result = await _categoryService.PostCategory(name);
@@ -36,6 +39,7 @@ namespace WebsitePortUTC2.Areas.Admin.Controllers
         }
 
         [Route("NewsCategory/edit/{id:int}")]
+        [Authentication]
         public async Task<IActionResult> Edit(int id)
         {
             var isNewsCategory = await _categoryService.GetCategoryById(id);
@@ -47,6 +51,7 @@ namespace WebsitePortUTC2.Areas.Admin.Controllers
         }
 
         [HttpPost]
+        [Authentication]
         public async Task<IActionResult> Edit(int categoryId, string name, int status)
         {
             var res = await _categoryService.PutCategory(categoryId, name, status);
@@ -62,6 +67,7 @@ namespace WebsitePortUTC2.Areas.Admin.Controllers
             }
         }
 
+        [Authentication]
         public async Task<IActionResult> Delete(int id)
         {
             var res = await _categoryService.DeleteCategory(id);

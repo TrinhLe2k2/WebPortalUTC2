@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.Text.Json;
+using WebsitePortUTC2.Models.Authentication;
 using WebsitePortUTC2.Services;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 
@@ -24,12 +25,14 @@ namespace WebsitePortUTC2.Areas.Admin.Controllers
         }
 
         [Route("news/newslist")]
+        [Authentication]
         public IActionResult NewsList()
         {
             return View();
         }
 
         [Route("news/create")]
+        [Authentication]
         public async Task<IActionResult> Create()
         {
             #region GetCategoriesListByStatus 
@@ -41,6 +44,7 @@ namespace WebsitePortUTC2.Areas.Admin.Controllers
         }
 
         [HttpPost]
+        [Authentication]
         public async Task<IActionResult> Create(string name, string description, int newsCategoryId, string metaUrl, IFormFile poster)
         {
             var postimg = 0;
@@ -77,6 +81,7 @@ namespace WebsitePortUTC2.Areas.Admin.Controllers
         }
 
         [Route("news/edit/{id:int}")]
+        [Authentication]
         public async Task<IActionResult> Edit(int id)
         {
             #region GetCategoriesListByStatus 
@@ -95,6 +100,7 @@ namespace WebsitePortUTC2.Areas.Admin.Controllers
         }
         
         [HttpPost]
+        [Authentication]
         public async Task<IActionResult> Edit(int newsId, string name, string description, int imageId, int newsCategoryId, string metaUrl, string publishedAt, IFormFile newPoster)
         {
             var newImgId = -1;
@@ -135,6 +141,7 @@ namespace WebsitePortUTC2.Areas.Admin.Controllers
             }
         }
 
+        [Authentication]
         public async Task<IActionResult> Delete(int id)
         {
             var res = await _newsService.DeleteNews(id);

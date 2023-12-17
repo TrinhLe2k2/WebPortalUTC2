@@ -2,6 +2,7 @@
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System.Net.Http;
+using WebsitePortUTC2.Models.Authentication;
 using WebsitePortUTC2.Services;
 
 namespace WebsitePortUTC2.Areas.Admin.Controllers
@@ -18,6 +19,7 @@ namespace WebsitePortUTC2.Areas.Admin.Controllers
         }
 
         [Route("Website")]
+        [Authentication]
         public async Task<IActionResult> InformationWebsite()
         {
             var school = await _schoolService.GetSchoolAsync();
@@ -26,6 +28,7 @@ namespace WebsitePortUTC2.Areas.Admin.Controllers
         }
 
         [HttpPost]
+        [Authentication]
         public async Task<IActionResult> Edit(int schoolId, string name, string shortName, string code, string logoUrl, string faviconUrl, string addressText, string hotline, string phone, string email)
         {
             var res = await _schoolService.PutSchool(schoolId, name, shortName, code, logoUrl, faviconUrl, hotline, phone, email);
